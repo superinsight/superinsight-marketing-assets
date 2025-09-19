@@ -26,30 +26,30 @@
     <!-- End Google Tag Manager -->
 
     <script>
+    // Utility functions - available globally
+    window.getCookie = function(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+        return null;
+    };
+    
+    window.generateUUID = function() {
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+            /[xy]/g,
+            function (c) {
+                const r = (Math.random() * 16) | 0;
+                const v = c === "x" ? r : (r & 0x3) | 0x8;
+                return v.toString(16);
+            }
+        );
+    };
+
     //Inhouse tracking
     (function () {
       let lastTrackedUrl = null; // Start with no tracked URL
       const HUMAN_DELAY_THRESHOLD = 3000; // Minimum delay to detect bot-like speed
     
-      // Function to generate a random UUID (version 4)
-      function generateUUID() {
-        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-          /[xy]/g,
-          function (c) {
-            const r = (Math.random() * 16) | 0;
-            const v = c === "x" ? r : (r & 0x3) | 0x8;
-            return v.toString(16);
-          }
-        );
-      }
-    
-      // Function to get a cookie value by its name
-      function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(";").shift();
-        return null;
-      }
     
       // Function to set a cookie with a given name and value
       function setCookie(name, value, days) {
@@ -131,9 +131,9 @@
         // Extract UTM parameters and other data
         const queryParams = new URLSearchParams(window.location.search);
         var visitorId =
-          getCookie("superinsight_visitor") ||
+          window.getCookie("superinsight_visitor") ||
           (() => {
-            const uuid = generateUUID();
+            const uuid = window.generateUUID();
             setCookie("superinsight_visitor", uuid, 365);
             return uuid;
           })();
@@ -218,9 +218,9 @@
                     <img src="../../assets/images/logo-blue.png" alt="Superinsight" width="180" height="40">
                 </div>
                 <div class="header-cta">
-                    <a href="https://app.superinsight.me/#/signup?utm_source=google_ads&utm_medium=cpc&utm_campaign=use_cases&utm_content=header_cta" 
+                    <a href="https://app.superinsight.me/#/signup?utm_source=google_ads&utm_medium=cpc&utm_campaign=use_cases&utm_content=header_cta&visitor_id=" 
                        class="btn btn-primary btn-blue" 
-                       onclick="trackCTA('header', 'use_cases')">
+                       onclick="trackCTA('header', 'use_cases'); this.href += (getCookie('superinsight_visitor') || generateUUID());">
                         Try It Free
                     </a>
                 </div>
@@ -264,9 +264,9 @@
                     </div>
                     
                     <div class="hero-cta">
-                        <a href="https://app.superinsight.me/#/signup?utm_source=google_ads&utm_medium=cpc&utm_campaign=use_cases&utm_content=hero_primary" 
+                        <a href="https://app.superinsight.me/#/signup?utm_source=google_ads&utm_medium=cpc&utm_campaign=use_cases&utm_content=hero_primary&visitor_id=" 
                            class="btn btn-primary btn-large" 
-                           onclick="trackCTA('hero_primary', 'use_cases')">
+                           onclick="trackCTA('hero_primary', 'use_cases'); this.href += (getCookie('superinsight_visitor') || generateUUID());">
                             Get Your Free Review
                         </a>
                         <p class="cta-subtext">No credit card required • Sign up and get first review for free • HIPAA compliant</p>
@@ -504,9 +504,9 @@
                 </p>
                 
                 <div class="cta-buttons">
-                    <a href="https://app.superinsight.me/#/signup?utm_source=google_ads&utm_medium=cpc&utm_campaign=use_cases&utm_content=final_cta" 
+                    <a href="https://app.superinsight.me/#/signup?utm_source=google_ads&utm_medium=cpc&utm_campaign=use_cases&utm_content=final_cta&visitor_id=" 
                        class="btn btn-primary btn-large btn-white" 
-                       onclick="trackCTA('final_cta', 'use_cases')">
+                       onclick="trackCTA('final_cta', 'use_cases'); this.href += (getCookie('superinsight_visitor') || generateUUID());">
                         Try It Free
                     </a>
                     <a href="https://superinsight.ai/demo.html?utm_source=google_ads&utm_medium=cpc&utm_campaign=use_cases&utm_content=demo_cta" 
