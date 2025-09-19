@@ -24,6 +24,185 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-MDGBJKRM');</script>
     <!-- End Google Tag Manager -->
+
+    <script>
+    //Inhouse tracking
+    (function () {
+      let lastTrackedUrl = null; // Start with no tracked URL
+      const HUMAN_DELAY_THRESHOLD = 3000; // Minimum delay to detect bot-like speed
+    
+      // Function to generate a random UUID (version 4)
+      function generateUUID() {
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+          /[xy]/g,
+          function (c) {
+            const r = (Math.random() * 16) | 0;
+            const v = c === "x" ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
+          }
+        );
+      }
+    
+      // Function to get a cookie value by its name
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+        return null;
+      }
+    
+      // Function to set a cookie with a given name and value
+      function setCookie(name, value, days) {
+        const expires = new Date(Date.now() + days * 864e5).toUTCString();
+        document.cookie = `${name}=${value}; expires=${expires}; Domain=.superinsight.ai; Path=/; Secure; SameSite=None;`;
+      }
+    
+      // Function to detect headless browsers and bots
+      function isHeadless() {
+        return (
+          !window.navigator.hardwareConcurrency || // Bots often lack hardware details
+          !window.navigator.plugins.length || // Headless browsers may have no plugins
+          navigator.webdriver || // Webdriver flag for automation
+          (window.outerWidth === 0 && window.outerHeight === 0) // Unusual window size
+        );
+      }
+    
+      // Function to detect human-like behavior
+      function detectHuman() {
+        const loadTime = performance.now(); // Time since page load
+    
+        if (isHeadless()) {
+          console.warn("Bot detected: Headless browser");
+          return false;
+        }
+    
+        if (loadTime < HUMAN_DELAY_THRESHOLD) {
+          console.warn("Bot detected: Suspiciously fast execution");
+          return false;
+        }
+    
+        // console.log('Human detected. Executing tracking script...')
+        return true;
+      }
+    
+      // Function to detect device and browser info
+      function getDeviceInfo() {
+        const userAgent = window.navigator.userAgent;
+        const deviceType = /Mobi|Android/i.test(userAgent) ? "mobile" : "desktop";
+        const browser = /Chrome/.test(userAgent)
+          ? "Chrome"
+          : /Firefox/.test(userAgent)
+          ? "Firefox"
+          : /Safari/.test(userAgent)
+          ? "Safari"
+          : /Edge/.test(userAgent)
+          ? "Edge"
+          : "Other";
+        const os = /Windows/.test(userAgent)
+          ? "Windows"
+          : /Mac/.test(userAgent)
+          ? "Mac"
+          : /Linux/.test(userAgent)
+          ? "Linux"
+          : /Android/.test(userAgent)
+          ? "Android"
+          : /iPhone|iPad|iPod/.test(userAgent)
+          ? "iOS"
+          : "Other";
+    
+        return {
+          device_type: deviceType,
+          browser: browser,
+          operating_system: os,
+        };
+      }
+    
+      // Function to handle the actual tracking
+      function trackWebsiteVisit() {
+        const fullUrl = window.location.href;
+    
+        // Only track if the URL has changed
+        if (fullUrl === lastTrackedUrl) {
+          return;
+        }
+    
+        lastTrackedUrl = fullUrl; // Update last tracked URL
+    
+        // Extract UTM parameters and other data
+        const queryParams = new URLSearchParams(window.location.search);
+        var visitorId =
+          getCookie("superinsight_visitor") ||
+          (() => {
+            const uuid = generateUUID();
+            setCookie("superinsight_visitor", uuid, 365);
+            return uuid;
+          })();
+        const collectedData = {
+          full_url: fullUrl,
+          utm_source: queryParams.get("utm_source"),
+          utm_medium: queryParams.get("utm_medium"),
+          utm_campaign: queryParams.get("utm_campaign"),
+          utm_term: queryParams.get("utm_term"),
+          utm_content: queryParams.get("utm_content"),
+          person_id: queryParams.get("pid"), // Custom parameter
+          landing_page: window.location.pathname,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          referrer: document.referrer || "direct",
+          visitor_id: visitorId,
+          referral_code: queryParams.get("referral_code"),
+          ...getDeviceInfo(), // Add device info
+        };
+    
+        // Send data to the backend
+        fetch("https://app.superinsight.me/lambda/track-website-visit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(collectedData),
+        });
+    
+        window.dataLayer.push({
+          event: "visitor_info",
+          visitor_id: visitorId,
+        });
+      }
+    
+      // Ensure tracking happens on initial load
+      function trackOnLoad() {
+        setTimeout(() => {
+          if (detectHuman()) {
+            trackWebsiteVisit();
+          }
+        }, HUMAN_DELAY_THRESHOLD); // Delay for bot detection
+      }
+    
+      // Listen for navigation changes (pushState, replaceState, and popstate)
+      const originalPushState = history.pushState;
+      history.pushState = function () {
+        originalPushState.apply(history, arguments);
+        trackWebsiteVisit();
+      };
+    
+      const originalReplaceState = history.replaceState;
+      history.replaceState = function () {
+        originalReplaceState.apply(history, arguments);
+        trackWebsiteVisit();
+      };
+    
+      window.addEventListener("popstate", trackWebsiteVisit);
+    
+      // Track the initial page load if the visitor is human
+      if (
+        document.readyState === "complete" ||
+        document.readyState === "interactive"
+      ) {
+        trackOnLoad();
+      } else {
+        window.addEventListener("DOMContentLoaded", trackOnLoad);
+      }
+    })();
+    </script>
+    
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
