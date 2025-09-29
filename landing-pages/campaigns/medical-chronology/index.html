@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Medical Chronology Services - AI-Powered Medical Record Analysis | Superinsight</title>
+    <meta name="description" content="Professional medical chronology services for attorneys. AI-powered medical record analysis creates comprehensive chronologies for personal injury, malpractice, and disability cases.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../assets/css/landing-page.css">
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MDGBJKRM');</script>
+    <!-- End Google Tag Manager -->
+
+    <script>
+    // Utility functions - available globally
+    window.getCookie = function(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+        return null;
+    };
+    
+    window.generateUUID = function() {
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+            /[xy]/g,
+            function (c) {
+                const r = (Math.random() * 16) | 0;
+                const v = c === "x" ? r : (r & 0x3) | 0x8;
+                return v.toString(16);
+            }
+        );
+    };
+
+    //Inhouse tracking
+    (function () {
+      let lastTrackedUrl = null; // Start with no tracked URL
+      const HUMAN_DELAY_THRESHOLD = 3000; // Minimum delay to detect bot-like speed
+    
+    
+      // Function to set a cookie with a given name and value
+      function setCookie(name, value, days) {
+        const expires = new Date(Date.now() + days * 864e5).toUTCString();
+        document.cookie = `${name}=${value}; expires=${expires}; Domain=.superinsight.ai; Path=/; Secure; SameSite=None;`;
+      }
+    
+      // Function to detect headless browsers and bots
+      function isHeadless() {
+        return (
+          !window.navigator.hardwareConcurrency || // Bots often lack hardware details
+          !window.navigator.plugins.length || // Headless browsers may have no plugins
+          navigator.webdriver || // Webdriver flag for automation
+          (window.outerWidth === 0 && window.outerHeight === 0) // Unusual window size
+        );
+      }
+    
+      // Function to detect human-like behavior
+      function detectHuman() {
+        const loadTime = performance.now(); // Time since page load
+    
+        if (isHeadless()) {
+          console.warn("Bot detected: Headless browser");
+          return false;
+        }
+    
+        if (loadTime < HUMAN_DELAY_THRESHOLD) {
+          console.warn("Bot detected: Suspiciously fast execution");
+          return false;
+        }
+    
+        // console.log('Human detected. Executing tracking script...')
+        return true;
+      }
+    
+      // Function to detect device and browser info
+      function getDeviceInfo() {
+        const userAgent = window.navigator.userAgent;
+        const deviceType = /Mobi|Android/i.test(userAgent) ? "mobile" : "desktop";
+        const browser = /Chrome/.test(userAgent)
+          ? "Chrome"
+          : /Firefox/.test(userAgent)
+          ? "Firefox"
+          : /Safari/.test(userAgent)
+          ? "Safari"
+          : /Edge/.test(userAgent)
+          ? "Edge"
+          : "Other";
+        const os = /Windows/.test(userAgent)
+          ? "Windows"
+          : /Mac/.test(userAgent)
+          ? "Mac"
+          : /Linux/.test(userAgent)
+          ? "Linux"
+          : /Android/.test(userAgent)
+          ? "Android"
+          : /iPhone|iPad|iPod/.test(userAgent)
+          ? "iOS"
+          : "Other";
+    
+        return {
+          device_type: deviceType,
+          browser: browser,
+          operating_system: os,
+        };
+      }
+    
+      // Function to handle the actual tracking
+      function trackWebsiteVisit() {
+        const fullUrl = window.location.href;
+    
+        // Only track if the URL has changed
+        if (fullUrl === lastTrackedUrl) {
+          return;
+        }
+    
+        lastTrackedUrl = fullUrl; // Update last tracked URL
+    
+        // Extract UTM parameters and other data
+        const queryParams = new URLSearchParams(window.location.search);
+        var visitorId =
+          window.getCookie("superinsight_visitor") ||
+          (() => {
+            const uuid = window.generateUUID();
+            setCookie("superinsight_visitor", uuid, 365);
+            return uuid;
+          })();
+        const collectedData = {
+          full_url: fullUrl,
+          utm_source: queryParams.get("utm_source"),
+          utm_medium: queryParams.get("utm_medium"),
+          utm_campaign: queryParams.get("utm_campaign"),
+          utm_term: queryParams.get("utm_term"),
+          utm_content: queryParams.get("utm_content"),
+          person_id: queryParams.get("pid"), // Custom parameter
+          landing_page: window.location.pathname,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          referrer: document.referrer || "direct",
+          visitor_id: visitorId,
+          referral_code: queryParams.get("referral_code"),
+          ...getDeviceInfo(), // Add device info
+        };
+    
+        // Send data to the backend
+        fetch("https://app.superinsight.me/lambda/track-website-visit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(collectedData),
+        });
+    
+        window.dataLayer.push({
+          event: "visitor_info",
+          visitor_id: visitorId,
+        });
+      }
+    
+      // Ensure tracking happens on initial load
+      function trackOnLoad() {
+        setTimeout(() => {
+          if (detectHuman()) {
+            trackWebsiteVisit();
+          }
+        }, HUMAN_DELAY_THRESHOLD); // Delay for bot detection
+      }
+    
+      // Listen for navigation changes (pushState, replaceState, and popstate)
+      const originalPushState = history.pushState;
+      history.pushState = function () {
+        originalPushState.apply(history, arguments);
+        trackWebsiteVisit();
+      };
+    
+      const originalReplaceState = history.replaceState;
+      history.replaceState = function () {
+        originalReplaceState.apply(history, arguments);
+        trackWebsiteVisit();
+      };
+    
+      window.addEventListener("popstate", trackWebsiteVisit);
+    
+      // Track the initial page load if the visitor is human
+      if (
+        document.readyState === "complete" ||
+        document.readyState === "interactive"
+      ) {
+        trackOnLoad();
+      } else {
+        window.addEventListener("DOMContentLoaded", trackOnLoad);
+      }
+    })();
+    </script>
+    
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDGBJKRM"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../../assets/images/logo-blue.png" alt="Superinsight" width="180" height="40">
+                </div>
+                <div class="header-cta">
+                    <a href="https://app.superinsight.me/#/signup?utm_source=google&utm_medium=cpc&utm_campaign=medical_chronology&utm_content=header_cta&visitor_id=" 
+                       class="btn btn-primary btn-blue" 
+                       onclick="trackCTA('header', 'medical_chronology'); this.href += (getCookie('superinsight_visitor') || generateUUID());">
+                        Try It Free
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Professional 
+                        <span class="highlight">Medical Chronology Services</span>
+                        for Attorneys
+                    </h1>
+                    <p class="hero-subtitle">
+                        Get comprehensive medical chronologies created by AI in hours, not weeks. 
+                        Perfect for personal injury, medical malpractice, workers' compensation, and disability cases.
+                    </p>
+                    
+                    <div class="hero-benefits">
+                        <div class="benefit-item">
+                            <svg class="benefit-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill="currentColor"/>
+                            </svg>
+                            <span>Complete medical chronologies in 24 hours</span>
+                        </div>
+                        <div class="benefit-item">
+                            <svg class="benefit-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill="currentColor"/>
+                            </svg>
+                            <span>Chronological timeline with key medical events</span>
+                        </div>
+                        <div class="benefit-item">
+                            <svg class="benefit-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill="currentColor"/>
+                            </svg>
+                            <span>Unlimited pages starting at $27 per case</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-cta">
+                        <a href="https://app.superinsight.me/#/signup?utm_source=google&utm_medium=cpc&utm_campaign=medical_chronology&utm_content=hero_primary&visitor_id=" 
+                           class="btn btn-primary btn-large" 
+                           onclick="trackCTA('hero_primary', 'medical_chronology'); this.href += (getCookie('superinsight_visitor') || generateUUID());">
+                            Get Your Free Medical Chronology
+                        </a>
+                        <p class="cta-subtext">No credit card required • First chronology free • HIPAA compliant</p>
+                    </div>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">Law Firms</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">1000+</div>
+                            <div class="stat-label">Cases Per Month</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">99.99%</div>
+                            <div class="stat-label">Accuracy Rate</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">85%</div>
+                            <div class="stat-label">Time Saved</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">1 Hour</div>
+                            <div class="stat-label">Turnaround</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Availability</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="social-proof">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Trusted by Leading Law Firms for Medical Chronology Services</h2>
+            </div>
+            
+            <div class="testimonials">
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">
+                            "The medical chronology service from Superinsight has transformed how we handle personal injury cases. What used to take weeks now takes hours, and the quality is exceptional."
+                        </p>
+                        <div class="testimonial-author">
+                            <img src="../../assets/images/testimonial/katie-reed.png" alt="Katie Reed" width="48" height="48">
+                            <div>
+                                <div class="author-name">Katie Reed</div>
+                                <div class="author-title">Personal Injury Lawyer, McMahan Law Firm</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">
+                            "Having comprehensive medical chronologies ready for every case has significantly improved our case preparation and client outcomes. The AI-powered analysis is incredibly thorough."
+                        </p>
+                        <div class="testimonial-author">
+                            <img src="../../assets/images/testimonial/scott-haider.png" alt="Scott Haider" width="48" height="48">
+                            <div>
+                                <div class="author-name">Scott Haider</div>
+                                <div class="author-title">Social Security Disability Attorney, Schneider Law Firm</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Law Firms</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Medical Chronologies</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">99.99%</div>
+                    <div class="stat-label">Accuracy Rate</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">1 Hour</div>
+                    <div class="stat-label">Average Turnaround</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Medical Chronology Features Section -->
+    <section class="features" id="medical-chronology-features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Comprehensive Medical Chronology Services</h2>
+                <p class="section-subtitle">
+                    Our AI-powered medical chronology service provides detailed timelines and analysis for all types of legal cases
+                </p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="#285190" fill-opacity="0.1"/>
+                            <path d="M12 16H36V32H12V16ZM14 18V30H34V18H14ZM16 20H32V22H16V20ZM16 24H32V26H16V24ZM16 28H28V30H16V28Z" fill="#285190"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Chronological Timeline Creation</h3>
+                    <p class="feature-description">
+                        <strong>Detailed Medical Timeline:</strong> Complete chronological sequence of all medical events, treatments, and diagnoses.<br><br>
+                        <strong>Key Event Identification:</strong> Highlights critical medical milestones and treatment decisions.<br><br>
+                        <strong>Date-Specific Organization:</strong> Precise dating of all medical interventions and outcomes.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="#10B981" fill-opacity="0.1"/>
+                            <path d="M24 8C31.732 8 38 14.268 38 22C38 29.732 31.732 36 24 36C16.268 36 10 29.732 10 22C10 14.268 16.268 8 24 8ZM24 12C18.477 12 14 16.477 14 22C14 27.523 18.477 32 24 32C29.523 32 34 27.523 34 22C34 16.477 29.523 12 24 12ZM24 16C26.209 16 28 17.791 28 20C28 22.209 26.209 24 24 24C21.791 24 20 22.209 20 20C20 17.791 21.791 16 24 16Z" fill="#10B981"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Medical Record Analysis</h3>
+                    <p class="feature-description">
+                        <strong>Comprehensive Review:</strong> Analysis of all medical records, reports, and documentation.<br><br>
+                        <strong>Treatment Progression:</strong> Tracks the evolution of medical conditions and treatments over time.<br><br>
+                        <strong>Provider Correlation:</strong> Links treatments across different healthcare providers and facilities.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="#F59E0B" fill-opacity="0.1"/>
+                            <path d="M14 12H34C35.1046 12 36 12.8954 36 14V34C36 35.1046 35.1046 36 34 36H14C12.8954 36 12 35.1046 12 34V14C12 12.8954 12.8954 12 14 12ZM16 16V32H32V16H16ZM18 18H30V20H18V18ZM18 22H30V24H18V22ZM18 26H26V28H18V26Z" fill="#F59E0B"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Legal-Ready Documentation</h3>
+                    <p class="feature-description">
+                        <strong>Court-Ready Format:</strong> Professional chronologies formatted for legal proceedings and expert testimony.<br><br>
+                        <strong>Citation References:</strong> Complete source documentation with page numbers and record references.<br><br>
+                        <strong>Summary Reports:</strong> Executive summaries highlighting key findings and medical conclusions.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="#8B5CF6" fill-opacity="0.1"/>
+                            <path d="M24 8L32 16H28V24H32L24 32L16 24H20V16H16L24 8ZM24 12L20 16H22V22H26V16H28L24 12Z" fill="#8B5CF6"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Injury & Causation Analysis</h3>
+                    <p class="feature-description">
+                        <strong>Causation Links:</strong> Identifies relationships between incidents, treatments, and medical outcomes.<br><br>
+                        <strong>Injury Progression:</strong> Tracks the development and progression of injuries over time.<br><br>
+                        <strong>Treatment Efficacy:</strong> Analyzes the effectiveness of various treatments and interventions.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="#EF4444" fill-opacity="0.1"/>
+                            <path d="M24 8C31.732 8 38 14.268 38 22V26C38 33.732 31.732 40 24 40C16.268 40 10 33.732 10 26V22C10 14.268 16.268 8 24 8ZM24 12C18.477 12 14 16.477 14 22V26C14 31.523 18.477 36 24 36C29.523 36 34 31.523 34 26V22C34 16.477 29.523 12 24 12Z" fill="#EF4444"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Expert Medical Insights</h3>
+                    <p class="feature-description">
+                        <strong>Medical Terminology:</strong> Clear explanations of complex medical terms and procedures.<br><br>
+                        <strong>Standard of Care:</strong> Analysis of treatment decisions against accepted medical standards.<br><br>
+                        <strong>Outcome Predictions:</strong> Assessment of long-term prognosis and future medical needs.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="#06B6D4" fill-opacity="0.1"/>
+                            <path d="M12 14H36V34H12V14ZM14 16V32H34V16H14ZM16 18H32V20H16V18ZM16 22H32V24H16V22ZM16 26H28V28H16V26ZM30 26H32V28H30V26Z" fill="#06B6D4"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Multi-Format Delivery</h3>
+                    <p class="feature-description">
+                        <strong>Multiple Formats:</strong> Chronologies delivered in PDF and Word formats for maximum flexibility.<br><br>
+                        <strong>Interactive Timelines:</strong> Digital timelines with clickable events and expandable details.<br><br>
+                        <strong>Custom Formatting:</strong> Chronologies formatted to match your firm's specific requirements and preferences.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">See Our Medical Chronology Service in Action</h2>
+                <p class="section-subtitle">
+                    Watch how our AI creates comprehensive medical chronologies for legal cases
+                </p>
+            </div>
+            
+            <div class="video-container">
+                <iframe 
+                    width="800" 
+                    height="450" 
+                    src="https://www.youtube.com/embed/xW8Q7gTOy-c" 
+                    title="Superinsight Medical Chronology Demo" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready for Professional Medical Chronology Services?</h2>
+                <p class="cta-subtitle">
+                    Join 100+ law firms using Superinsight for fast, accurate, and comprehensive medical chronologies 
+                    that strengthen their cases and improve client outcomes.
+                </p>
+                
+                <div class="cta-buttons">
+                    <a href="https://app.superinsight.me/#/signup?utm_source=google&utm_medium=cpc&utm_campaign=medical_chronology&utm_content=final_cta&visitor_id=" 
+                       class="btn btn-primary btn-large btn-white" 
+                       onclick="trackCTA('final_cta', 'medical_chronology'); this.href += (getCookie('superinsight_visitor') || generateUUID());">
+                        Get Your Free Chronology
+                    </a>
+                    <a href="https://superinsight.ai/demo.html?utm_source=google&utm_medium=cpc&utm_campaign=medical_chronology&utm_content=demo_cta" 
+                       class="btn btn-secondary btn-large" 
+                       onclick="trackCTA('demo_cta', 'medical_chronology')">
+                        Book Demo
+                    </a>
+                </div>
+                
+                <div class="cta-features">
+                    <div class="cta-feature">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" fill="currentColor"/>
+                        </svg>
+                        <span>First chronology free</span>
+                    </div>
+                    <div class="cta-feature">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" fill="currentColor"/>
+                        </svg>
+                        <span>No credit card required</span>
+                    </div>
+                    <div class="cta-feature">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" fill="currentColor"/>
+                        </svg>
+                        <span>HIPAA compliant</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Superinsight. All rights reserved.</p>
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <img src="../../assets/images/badge-nvidia-inception-program.png" alt="NVIDIA Inception Program">
+                        <span>Proud Member of NVIDIA Inception</span>
+                    </div>
+                    <div class="trust-badge">
+                        <img src="../../assets/images/badge-hipaa.png" alt="HIPAA & ISO 42001 Certified">
+                        <span>HIPAA & ISO 42001 Certified</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../../assets/js/landing-page.js"></script>
+    <script src="../../config/tracking.js"></script>
+    <script src="../../config/conversion.js"></script>
+</body>
+</html>
