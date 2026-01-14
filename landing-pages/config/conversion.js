@@ -10,27 +10,27 @@
  * Replace these with your actual conversion IDs and labels
  */
 const GOOGLE_ADS_CONFIG = {
-    // Primary conversion: Trial signup
-    TRIAL_SIGNUP: {
-        conversionId: 'AW-XXXXXXXXX',
-        conversionLabel: 'XXXXXXXXX',
+    // Primary conversion: Purchase
+    PURCHASE: {
+        conversionId: 'AW-17540312934',
+        conversionLabel: 'f5uWCOL2juEbEObe76tB',
         value: 50.00,
         currency: 'USD'
     },
     
-    // Secondary conversion: Demo request
-    DEMO_REQUEST: {
-        conversionId: 'AW-XXXXXXXXX', 
-        conversionLabel: 'XXXXXXXXX',
+    // Secondary conversion: Sign up
+    SIGNUP: {
+        conversionId: 'AW-17540312934', 
+        conversionLabel: 'lxvtCKmjj-EbEObe76tB',
         value: 25.00,
         currency: 'USD'
     },
     
-    // Micro conversion: Email signup
-    EMAIL_SIGNUP: {
-        conversionId: 'AW-XXXXXXXXX',
-        conversionLabel: 'XXXXXXXXX', 
-        value: 5.00,
+    // Tertiary conversion: Demo booked
+    DEMO_BOOKED: {
+        conversionId: 'AW-17540312934',
+        conversionLabel: 'cxSOCNqd1OAbEObe76tB',
+        value: 10.00,
         currency: 'USD'
     }
 };
@@ -79,11 +79,11 @@ function trackGoogleAdsConversion(conversionType, additionalData = {}) {
 }
 
 /**
- * Track trial signup conversion (primary conversion)
- * This should be called when user successfully signs up for trial
+ * Track purchase conversion (primary conversion)
+ * This should be called when user completes a purchase
  */
-function trackTrialSignupConversion(userData = {}) {
-    trackGoogleAdsConversion('TRIAL_SIGNUP', {
+function trackPurchaseConversion(userData = {}) {
+    trackGoogleAdsConversion('PURCHASE', {
         'user_id': userData.userId || null,
         'email': userData.email || null,
         'campaign_source': getCampaignSource(),
@@ -96,14 +96,14 @@ function trackTrialSignupConversion(userData = {}) {
             'event': 'purchase',
             'ecommerce': {
                 'transaction_id': generateTransactionId(),
-                'value': GOOGLE_ADS_CONFIG.TRIAL_SIGNUP.value,
-                'currency': GOOGLE_ADS_CONFIG.TRIAL_SIGNUP.currency,
+                'value': GOOGLE_ADS_CONFIG.PURCHASE.value,
+                'currency': GOOGLE_ADS_CONFIG.PURCHASE.currency,
                 'items': [{
-                    'item_id': 'trial_signup',
-                    'item_name': 'Free Trial Signup',
+                    'item_id': 'purchase',
+                    'item_name': 'Purchase',
                     'item_category': 'conversion',
                     'quantity': 1,
-                    'price': GOOGLE_ADS_CONFIG.TRIAL_SIGNUP.value
+                    'price': GOOGLE_ADS_CONFIG.PURCHASE.value
                 }]
             }
         });
@@ -111,10 +111,10 @@ function trackTrialSignupConversion(userData = {}) {
     
     // Meta Pixel conversion
     if (typeof fbq !== 'undefined') {
-        fbq('track', 'CompleteRegistration', {
-            value: GOOGLE_ADS_CONFIG.TRIAL_SIGNUP.value,
-            currency: GOOGLE_ADS_CONFIG.TRIAL_SIGNUP.currency,
-            content_name: 'Trial Signup',
+        fbq('track', 'Purchase', {
+            value: GOOGLE_ADS_CONFIG.PURCHASE.value,
+            currency: GOOGLE_ADS_CONFIG.PURCHASE.currency,
+            content_name: 'Purchase',
             source: 'google_ads'
         });
     }
@@ -126,47 +126,69 @@ function trackTrialSignupConversion(userData = {}) {
 }
 
 /**
- * Track demo request conversion (secondary conversion)
+ * Track signup conversion
+ * This should be called when user signs up
  */
-function trackDemoRequestConversion(userData = {}) {
-    trackGoogleAdsConversion('DEMO_REQUEST', {
+function trackSignupConversion(userData = {}) {
+    trackGoogleAdsConversion('SIGNUP', {
         'user_id': userData.userId || null,
         'email': userData.email || null,
         'campaign_source': getCampaignSource(),
         'landing_page': window.location.href
     });
     
-    // Meta Pixel
+    // GA4 event
+    if (typeof dataLayer !== 'undefined') {
+        dataLayer.push({
+            'event': 'sign_up',
+            'method': 'website',
+            'value': GOOGLE_ADS_CONFIG.SIGNUP.value,
+            'currency': GOOGLE_ADS_CONFIG.SIGNUP.currency
+        });
+    }
+    
+    // Meta Pixel conversion
     if (typeof fbq !== 'undefined') {
-        fbq('track', 'Lead', {
-            value: GOOGLE_ADS_CONFIG.DEMO_REQUEST.value,
-            currency: GOOGLE_ADS_CONFIG.DEMO_REQUEST.currency,
-            content_name: 'Demo Request',
+        fbq('track', 'CompleteRegistration', {
+            value: GOOGLE_ADS_CONFIG.SIGNUP.value,
+            currency: GOOGLE_ADS_CONFIG.SIGNUP.currency,
+            content_name: 'Sign Up',
             source: 'google_ads'
         });
     }
 }
 
 /**
- * Track email signup conversion (micro conversion)
+ * Track demo booked conversion
  */
-function trackEmailSignupConversion(userData = {}) {
-    trackGoogleAdsConversion('EMAIL_SIGNUP', {
+function trackDemoBookedConversion(userData = {}) {
+    trackGoogleAdsConversion('DEMO_BOOKED', {
+        'user_id': userData.userId || null,
         'email': userData.email || null,
         'campaign_source': getCampaignSource(),
         'landing_page': window.location.href
     });
     
+    // GA4 event
+    if (typeof dataLayer !== 'undefined') {
+        dataLayer.push({
+            'event': 'demo_booked',
+            'value': GOOGLE_ADS_CONFIG.DEMO_BOOKED.value,
+            'currency': GOOGLE_ADS_CONFIG.DEMO_BOOKED.currency
+        });
+    }
+    
     // Meta Pixel
     if (typeof fbq !== 'undefined') {
-        fbq('track', 'Lead', {
-            value: GOOGLE_ADS_CONFIG.EMAIL_SIGNUP.value,
-            currency: GOOGLE_ADS_CONFIG.EMAIL_SIGNUP.currency,
-            content_name: 'Email Signup',
+        fbq('track', 'Schedule', {
+            value: GOOGLE_ADS_CONFIG.DEMO_BOOKED.value,
+            currency: GOOGLE_ADS_CONFIG.DEMO_BOOKED.currency,
+            content_name: 'Demo Booked',
             source: 'google_ads'
         });
     }
 }
+
 
 /**
  * Get campaign source information from URL parameters
@@ -198,14 +220,14 @@ function generateTransactionId() {
 function trackAppRedirectConversion() {
     // Set a flag to track this conversion
     sessionStorage.setItem('pending_conversion', JSON.stringify({
-        type: 'TRIAL_SIGNUP',
+        type: 'SIGNUP',
         timestamp: Date.now(),
         source: getCampaignSource(),
         landing_page: window.location.href
     }));
     
-    // Track the conversion immediately
-    trackTrialSignupConversion();
+    // Track the signup conversion immediately
+    trackSignupConversion();
     
     console.log('App redirect conversion tracked');
 }
@@ -307,9 +329,9 @@ function initializeConversionTracking() {
             trackAppRedirectConversion();
         }
         
-        // Track demo requests
+        // Track demo bookings
         if (href && (href.includes('/demo') || href.includes('demo'))) {
-            trackDemoRequestConversion();
+            trackDemoBookedConversion();
         }
     });
     
@@ -325,9 +347,9 @@ if (document.readyState === 'loading') {
 
 // Export functions for external use
 window.SuperinsightConversions = {
-    trackTrialSignup: trackTrialSignupConversion,
-    trackDemoRequest: trackDemoRequestConversion,
-    trackEmailSignup: trackEmailSignupConversion,
+    trackPurchase: trackPurchaseConversion,
+    trackSignup: trackSignupConversion,
+    trackDemoBooked: trackDemoBookedConversion,
     trackEnhanced: trackEnhancedConversion,
     checkPending: checkPendingConversions
 };
