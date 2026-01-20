@@ -169,7 +169,7 @@
         };
     
         // Send data to the backend
-        fetch("https://app.superinsight.me/lambda/track-website-visit", {
+        fetch("https://7qlutn073c.execute-api.us-east-2.amazonaws.com/prod/track", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(collectedData),
