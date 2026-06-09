@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Get Your Free Case Review | Superinsight</title>
+    <meta name="description" content="Tell us about your case and get a free medical record case review from Superinsight. Quick 60-second form for attorneys, doctors, and claimants.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../assets/css/landing-page.css">
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MDGBJKRM');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B69XP516VZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-B69XP516VZ');
+      gtag('config', 'AW-17540312934');
+    </script>
+    <!-- End Google tag -->
+
+    <script>
+    // Shared visitor utilities (mirrors keyword/index.html)
+    window.getCookie = function(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+        return null;
+    };
+
+    window.generateUUID = function() {
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+            const r = (Math.random() * 16) | 0;
+            const v = c === "x" ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
+        });
+    };
+
+    window.setVisitorCookie = function(name, value, days) {
+        const expires = new Date(Date.now() + days * 864e5).toUTCString();
+        document.cookie = `${name}=${value}; expires=${expires}; Domain=.superinsight.ai; Path=/; Secure; SameSite=None;`;
+    };
+
+    window.getVisitorId = function() {
+        let id = window.getCookie("superinsight_visitor");
+        if (!id) {
+            id = window.generateUUID();
+            window.setVisitorCookie("superinsight_visitor", id, 365);
+        }
+        return id;
+    };
+    </script>
+
+    <style>
+    /* ---- Wizard ---- */
+    .wizard-section {
+        min-height: calc(100vh - 73px);
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        padding: 48px 0 80px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .wizard-card {
+        width: 100%;
+        max-width: 640px;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.12);
+        padding: 40px;
+    }
+
+    .wizard-head {
+        text-align: center;
+        margin-bottom: 28px;
+    }
+
+    .wizard-head .eyebrow {
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #285190;
+        background: rgba(40, 81, 144, 0.08);
+        padding: 6px 14px;
+        border-radius: 999px;
+        margin-bottom: 16px;
+    }
+
+    .wizard-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 8px;
+        line-height: 1.15;
+    }
+
+    .wizard-subtitle {
+        font-size: 1.05rem;
+        color: #6b7280;
+        margin: 0;
+    }
+
+    /* Progress */
+    .progress {
+        margin-bottom: 28px;
+    }
+    .progress-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        font-weight: 600;
+        color: #9ca3af;
+        margin-bottom: 8px;
+    }
+    .progress-track {
+        height: 8px;
+        background: #eef2f7;
+        border-radius: 999px;
+        overflow: hidden;
+    }
+    .progress-fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #285190, #3b6fc0);
+        border-radius: 999px;
+        transition: width 0.3s ease;
+    }
+
+    /* Steps */
+    .step { display: none; }
+    .step.active { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    .step-question {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 6px;
+    }
+    .step-hint {
+        font-size: 0.95rem;
+        color: #6b7280;
+        margin-bottom: 22px;
+    }
+
+    /* Choice buttons */
+    .choices {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .choice {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        text-align: left;
+        padding: 18px 20px;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        background: #ffffff;
+        font-size: 1.05rem;
+        font-weight: 500;
+        color: #1f2937;
+        cursor: pointer;
+        transition: border-color 0.15s ease, background 0.15s ease, transform 0.05s ease;
+    }
+    .choice:hover { border-color: #285190; background: #f8fafc; }
+    .choice:active { transform: scale(0.995); }
+    .choice.selected { border-color: #285190; background: rgba(40, 81, 144, 0.06); }
+    .choice .tick {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 2px solid #cbd5e1;
+        flex-shrink: 0;
+        position: relative;
+        transition: all 0.15s ease;
+    }
+    .choice.selected .tick { border-color: #285190; background: #285190; }
+    .choice.selected .tick::after {
+        content: "";
+        position: absolute;
+        left: 6px; top: 2px;
+        width: 6px; height: 11px;
+        border: solid #fff;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
+
+    /* Inputs */
+    .field { margin-bottom: 18px; }
+    .field label {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 6px;
+    }
+    .field .req { color: #ef4444; }
+    .field input,
+    .field select,
+    .field textarea,
+    .other-input input {
+        width: 100%;
+        padding: 13px 14px;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 1rem;
+        color: #1f2937;
+        background: #fff;
+        transition: border-color 0.15s ease;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus,
+    .other-input input:focus {
+        outline: none;
+        border-color: #285190;
+    }
+    .field textarea { resize: vertical; min-height: 96px; }
+    .field-error {
+        display: none;
+        color: #ef4444;
+        font-size: 0.85rem;
+        margin-top: 6px;
+    }
+    .field.invalid input,
+    .field.invalid select { border-color: #ef4444; }
+    .field.invalid .field-error { display: block; }
+
+    .other-input { display: none; margin-top: 12px; }
+    .other-input.show { display: block; }
+
+    /* Navigation */
+    .wizard-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-top: 28px;
+    }
+    .wizard-nav .spacer { flex: 1; }
+    .wizard-nav--center { justify-content: center; }
+    .btn-ghost {
+        background: transparent;
+        color: #6b7280;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 12px 8px;
+        font-size: 15px;
+    }
+    .btn-ghost:hover { color: #285190; }
+    .btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+
+    /* Trust line */
+    .wizard-trust {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 22px;
+        font-size: 13px;
+        color: #9ca3af;
+    }
+
+    /* Summary (confirm step) */
+    .summary {
+        background: #f8fafc;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 18px 20px;
+        margin-bottom: 20px;
+    }
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 6px 0;
+        font-size: 0.95rem;
+    }
+    .summary-row .label { color: #6b7280; }
+    .summary-row .value { color: #1f2937; font-weight: 600; text-align: right; }
+
+    /* Success */
+    .success { display: none; text-align: center; }
+    .success.active { display: block; animation: fadeIn 0.25s ease; }
+    .success-icon {
+        width: 72px; height: 72px;
+        border-radius: 50%;
+        background: rgba(16, 185, 129, 0.12);
+        display: flex; align-items: center; justify-content: center;
+        margin: 0 auto 20px;
+    }
+    .success-title { font-size: 1.6rem; font-weight: 700; color: #1f2937; margin-bottom: 10px; }
+    .success-text { color: #6b7280; margin-bottom: 18px; }
+    .success-skip { color: #1f2937; font-weight: 600; margin-bottom: 16px; }
+
+    /* Honeypot */
+    .hp-field {
+        position: absolute !important;
+        left: -9999px !important;
+        width: 1px; height: 1px;
+        overflow: hidden;
+    }
+
+    @media (max-width: 600px) {
+        .wizard-card { padding: 28px 20px; border-radius: 16px; }
+        .wizard-title { font-size: 1.6rem; }
+        .step-question { font-size: 1.2rem; }
+    }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDGBJKRM"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../../assets/images/logo-blue.png" alt="Superinsight" width="180" height="40">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Wizard -->
+    <section class="wizard-section">
+        <div class="wizard-card">
+            <div class="wizard-head">
+                <span class="eyebrow">Free Case Review</span>
+                <h1 class="wizard-title">Get Your Free Case Review Today</h1>
+                <p class="wizard-subtitle">Answer a few quick questions — it takes about 60 seconds.</p>
+            </div>
+
+            <!-- Progress -->
+            <div class="progress" id="progress" hidden>
+                <div class="progress-meta">
+                    <span id="progressLabel">Step 1</span>
+                    <span id="progressCount"></span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+            </div>
+
+            <form id="leadForm" novalidate>
+                <!-- Honeypot -->
+                <div class="hp-field" aria-hidden="true">
+                    <label>Company website<input type="text" name="company_website" id="hpField" tabindex="-1" autocomplete="off"></label>
+                </div>
+
+                <!-- Intro -->
+                <div class="step active" data-step="intro">
+                    <div class="wizard-nav wizard-nav--center">
+                        <button type="button" class="btn btn-primary btn-large btn-blue" data-action="start">Start For Free</button>
+                    </div>
+                </div>
+
+                <!-- Step 1: Case type -->
+                <div class="step" data-step="case_type" data-name="case_type" data-field="case_type" data-single>
+                    <h2 class="step-question" tabindex="-1">What type of case is it?</h2>
+                    <p class="step-hint">This helps us tailor the review.</p>
+                    <div class="choices">
+                        <button type="button" class="choice" data-value="mass_tort"><span class="tick"></span><span>Mass Tort</span></button>
+                        <button type="button" class="choice" data-value="medical_malpractice"><span class="tick"></span><span>Medical Malpractice</span></button>
+                        <button type="button" class="choice" data-value="personal_injury"><span class="tick"></span><span>Personal Injury</span></button>
+                        <button type="button" class="choice" data-value="ssa_disability"><span class="tick"></span><span>Social Security (SSA)</span></button>
+                        <button type="button" class="choice" data-value="va_disability"><span class="tick"></span><span>VA Disability</span></button>
+                        <button type="button" class="choice" data-value="workers_comp"><span class="tick"></span><span>Workers' Comp</span></button>
+                        <button type="button" class="choice" data-value="other"><span class="tick"></span><span>Other</span></button>
+                    </div>
+                    <div class="other-input" data-other-for="case_type">
+                        <input type="text" placeholder="What type of case?" maxlength="120">
+                    </div>
+                    <div class="wizard-nav">
+                        <button type="button" class="btn-ghost" data-action="back">← Back</button>
+                        <span class="spacer"></span>
+                        <button type="button" class="btn btn-primary btn-blue" data-action="next" hidden>Continue</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Persona -->
+                <div class="step" data-step="persona" data-name="persona" data-field="persona" data-single>
+                    <h2 class="step-question" tabindex="-1">Which best describes you?</h2>
+                    <p class="step-hint">So we route you to the right team.</p>
+                    <div class="choices">
+                        <button type="button" class="choice" data-value="attorney"><span class="tick"></span><span>Attorney</span></button>
+                        <button type="button" class="choice" data-value="doctor"><span class="tick"></span><span>Doctor / Medical Provider</span></button>
+                        <button type="button" class="choice" data-value="claimant"><span class="tick"></span><span>Claimant / Individual</span></button>
+                    </div>
+                    <div class="wizard-nav">
+                        <button type="button" class="btn-ghost" data-action="back">← Back</button>
+                        <span class="spacer"></span>
+                        <button type="button" class="btn btn-primary btn-blue" data-action="next" hidden>Continue</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Volume (attorney/doctor only) -->
+                <div class="step" data-step="volume" data-name="cases_per_year" data-field="cases_per_year" data-single>
+                    <h2 class="step-question" tabindex="-1">How many cases do you handle per year?</h2>
+                    <p class="step-hint">A rough estimate is fine.</p>
+                    <div class="choices">
+                        <button type="button" class="choice" data-value="1_10"><span class="tick"></span><span>1 – 10</span></button>
+                        <button type="button" class="choice" data-value="11_50"><span class="tick"></span><span>11 – 50</span></button>
+                        <button type="button" class="choice" data-value="51_200"><span class="tick"></span><span>51 – 200</span></button>
+                        <button type="button" class="choice" data-value="200_plus"><span class="tick"></span><span>200+</span></button>
+                    </div>
+                    <div class="wizard-nav">
+                        <button type="button" class="btn-ghost" data-action="back">← Back</button>
+                        <span class="spacer"></span>
+                        <button type="button" class="btn btn-primary btn-blue" data-action="next" hidden>Continue</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Contact -->
+                <div class="step" data-step="contact" data-name="contact">
+                    <h2 class="step-question" tabindex="-1">Where should we send your review?</h2>
+                    <p class="step-hint">A specialist will reach out shortly.</p>
+
+                    <div class="field" data-validate="name">
+                        <label for="f_name">Full name <span class="req">*</span></label>
+                        <input type="text" id="f_name" name="name" autocomplete="name" placeholder="Jane Doe">
+                        <div class="field-error">Please enter your name.</div>
+                    </div>
+
+                    <div class="field" id="firmField" data-validate="firm">
+                        <label for="f_firm">Firm / organization</label>
+                        <input type="text" id="f_firm" name="firm" autocomplete="organization" placeholder="Acme Law Firm">
+                        <div class="field-error">Please enter your firm.</div>
+                    </div>
+
+                    <div class="field" data-validate="email">
+                        <label for="f_email">Email <span class="req">*</span></label>
+                        <input type="email" id="f_email" name="email" autocomplete="email" placeholder="jane@firm.com">
+                        <div class="field-error">Please enter a valid email address.</div>
+                    </div>
+
+                    <div class="field" data-validate="phone">
+                        <label for="f_phone">Phone</label>
+                        <input type="tel" id="f_phone" name="phone" autocomplete="tel" placeholder="(555) 123-4567">
+                        <div class="field-error">Please enter a valid phone number.</div>
+                    </div>
+
+                    <div class="wizard-nav">
+                        <button type="button" class="btn-ghost" data-action="back">← Back</button>
+                        <span class="spacer"></span>
+                        <button type="button" class="btn btn-primary btn-blue" data-action="next">Continue</button>
+                    </div>
+                </div>
+
+                <!-- Step 5: Confirm + notes -->
+                <div class="step" data-step="confirm" data-name="confirm">
+                    <h2 class="step-question" tabindex="-1">Almost done — anything to add?</h2>
+                    <p class="step-hint">A specialist will contact you shortly. Add any notes about your case (optional).</p>
+
+                    <div class="summary" id="summary"></div>
+
+                    <div class="field">
+                        <label for="f_notes">Notes (optional)</label>
+                        <textarea id="f_notes" name="notes" placeholder="e.g. 3,000 pages of records, deadline next month…" maxlength="1000"></textarea>
+                    </div>
+
+                    <div class="wizard-nav">
+                        <button type="button" class="btn-ghost" data-action="back">← Back</button>
+                        <span class="spacer"></span>
+                        <button type="button" class="btn btn-primary btn-large" id="submitBtn" data-action="submit" style="background-color:#ff6b35;color:#fff;">Get My Free Review</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Success -->
+            <div class="success" id="success">
+                <div class="success-icon">
+                    <svg width="34" height="34" viewBox="0 0 20 20" fill="none">
+                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill="#10b981"/>
+                    </svg>
+                </div>
+                <h2 class="success-title">You're all set!</h2>
+                <p class="success-text" id="successText">Thanks — a specialist will contact you shortly with your free case review.</p>
+                <p class="success-skip">Don't want to wait? Skip the line and start your free review right now.</p>
+                <a href="#" id="signupCta" class="btn btn-primary btn-large btn-blue">Start Now — Skip the Wait</a>
+            </div>
+
+            <div class="wizard-trust">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" fill="#10b981"/>
+                </svg>
+                <span>HIPAA compliant • No credit card required • First review free</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Superinsight. All rights reserved.</p>
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <img src="../../assets/images/badge-hipaa.png" alt="HIPAA & SOC2 & ISO 42001 Certified">
+                        <span>HIPAA & SOC2 & ISO 42001 Certified</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    (function () {
+        "use strict";
+
+        var TRACK_ENDPOINT = "https://7qlutn073c.execute-api.us-east-2.amazonaws.com/prod/track";
+        var WEBHOOK_TEST = "https://n8n.superinsight.me/webhook-test/c1619143-0f62-4294-86a8-47cf2a988135";
+        var WEBHOOK_PROD = "https://n8n.superinsight.me/webhook/c1619143-0f62-4294-86a8-47cf2a988135";
+        var STORAGE_KEY = "si_lead_form_v1";
+
+        var form = document.getElementById("leadForm");
+        var steps = Array.prototype.slice.call(form.querySelectorAll(".step"));
+        var successEl = document.getElementById("success");
+        var progressEl = document.getElementById("progress");
+        var progressFill = document.getElementById("progressFill");
+        var progressLabel = document.getElementById("progressLabel");
+        var progressCount = document.getElementById("progressCount");
+
+        // Question steps that count toward progress (intro/confirm shown, intro excluded from count)
+        var QUESTION_STEPS = ["case_type", "persona", "volume", "contact", "confirm"];
+
+        var answers = {
+            intent: "free_case_review", intent_other: "",
+            case_type: "", case_type_other: "",
+            persona: "",
+            cases_per_year: "",
+            name: "", firm: "", email: "", phone: "",
+            notes: ""
+        };
+
+        var currentStepId = "intro";
+        var startFired = false;
+
+        function getParams() { return new URLSearchParams(window.location.search); }
+
+        function getUtms() {
+            var p = getParams();
+            return {
+                utm_source: p.get("utm_source") || null,
+                utm_medium: p.get("utm_medium") || null,
+                utm_campaign: p.get("utm_campaign") || null,
+                utm_term: p.get("utm_term") || null,
+                utm_content: p.get("utm_content") || null,
+                gclid: p.get("gclid") || null
+            };
+        }
+
+        function postTrack(payload) {
+            try {
+                fetch(TRACK_ENDPOINT, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                    keepalive: true
+                }).catch(function () {});
+            } catch (e) { /* never block the UI on tracking */ }
+        }
+
+        function postWebhook(payload) {
+            // utm_source=test routes to the n8n test webhook; everything else hits production.
+            var endpoint = (getParams().get("utm_source") === "test") ? WEBHOOK_TEST : WEBHOOK_PROD;
+            try {
+                fetch(endpoint, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                    keepalive: true
+                }).catch(function () {});
+            } catch (e) { /* never block the UI on the webhook */ }
+        }
+
+        // Snapshot of every selection made so far, so each event carries cumulative results.
+        function currentSelections() {
+            return {
+                intent: answers.intent || null,
+                intent_other: answers.intent_other || null,
+                case_type: answers.case_type || null,
+                case_type_other: answers.case_type_other || null,
+                persona: answers.persona || null,
+                cases_per_year: answers.cases_per_year || null,
+                name: answers.name || null,
+                firm: answers.firm || null,
+                email: answers.email || null,
+                phone: answers.phone || null,
+                notes: answers.notes || null
+            };
+        }
+
+        // Build the full page URL with every selection + step meta embedded as query params.
+        // The /track API only stores full_url and ignores extra JSON params, so the data must
+        // live in the URL itself.
+        function buildFullUrl(eventName, extra) {
+            var url = new URL(window.location.href);
+            var sp = url.searchParams;
+            var sel = currentSelections();
+            Object.keys(sel).forEach(function (k) {
+                if (sel[k] !== null && sel[k] !== "") sp.set(k, sel[k]);
+            });
+            sp.set("form_event", eventName);
+            if (extra) {
+                if (extra.step_name) sp.set("form_step", extra.step_name);
+                if (extra.step_index != null) sp.set("form_step_index", extra.step_index);
+            }
+            url.search = sp.toString();
+            return url.toString();
+        }
+
+        // Single funnel emitter: pushes to dataLayer (GA4/GTM) and the in-house /track endpoint.
+        function track(eventName, extra) {
+            var fullUrl = buildFullUrl(eventName, extra);
+
+            // dataLayer keeps the selections as structured fields for GA4/GTM.
+            var dlPayload = Object.assign({
+                event: eventName,
+                visitor_id: window.getVisitorId(),
+                landing_page: window.location.pathname,
+                page_url: fullUrl,
+                created_at: new Date().toISOString()
+            }, getUtms(), currentSelections(), extra || {});
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push(dlPayload);
+
+            // /track API: selections ride inside full_url; only the endpoint's known fields are sent.
+            postTrack(Object.assign({
+                full_url: fullUrl,
+                landing_page: window.location.pathname,
+                visitor_id: window.getVisitorId(),
+                referrer: document.referrer || "direct",
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+            }, getUtms()));
+        }
+
+        // ---- Persistence ----
+        function save() {
+            try {
+                sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ answers: answers, step: currentStepId, startFired: startFired }));
+            } catch (e) {}
+        }
+        function restore() {
+            try {
+                var raw = sessionStorage.getItem(STORAGE_KEY);
+                if (!raw) return false;
+                var data = JSON.parse(raw);
+                if (data && data.answers) {
+                    answers = Object.assign(answers, data.answers);
+                    startFired = !!data.startFired;
+                    repopulate();
+                    if (data.step && data.step !== "intro") { showStep(data.step, true); return true; }
+                }
+            } catch (e) {}
+            return false;
+        }
+
+        function repopulate() {
+            steps.forEach(function (step) {
+                var field = step.getAttribute("data-field");
+                if (field && answers[field]) {
+                    var btn = step.querySelector('.choice[data-value="' + answers[field] + '"]');
+                    if (btn) btn.classList.add("selected");
+                    if (answers[field] === "other") {
+                        var other = step.querySelector(".other-input");
+                        if (other) {
+                            other.classList.add("show");
+                            var inp = other.querySelector("input");
+                            if (inp) inp.value = answers[field + "_other"] || "";
+                            var nextBtn = step.querySelector('[data-action="next"]');
+                            if (nextBtn) nextBtn.hidden = false;
+                        }
+                    }
+                }
+            });
+            setVal("f_name", answers.name);
+            setVal("f_firm", answers.firm);
+            setVal("f_email", answers.email);
+            setVal("f_phone", answers.phone);
+            setVal("f_notes", answers.notes);
+        }
+        function setVal(id, v) { var el = document.getElementById(id); if (el && v) el.value = v; }
+
+        // ---- Step visibility / branching ----
+        function visibleSteps() {
+            return QUESTION_STEPS.filter(function (id) {
+                if (id === "volume") return answers.persona === "attorney" || answers.persona === "doctor";
+                return true;
+            });
+        }
+
+        function stepEl(id) {
+            for (var i = 0; i < steps.length; i++) {
+                if (steps[i].getAttribute("data-step") === id) return steps[i];
+            }
+            return null;
+        }
+
+        function updateProgress() {
+            var vis = visibleSteps();
+            var idx = vis.indexOf(currentStepId);
+            if (idx === -1 || currentStepId === "intro") { progressEl.hidden = true; return; }
+            progressEl.hidden = false;
+            var pct = Math.round(((idx + 1) / vis.length) * 100);
+            progressFill.style.width = pct + "%";
+            progressLabel.textContent = "Step " + (idx + 1);
+            progressCount.textContent = (idx + 1) + " of " + vis.length;
+        }
+
+        function showStep(id, skipTrack) {
+            currentStepId = id;
+            steps.forEach(function (s) { s.classList.toggle("active", s.getAttribute("data-step") === id); });
+            successEl.classList.remove("active");
+
+            if (id === "contact") {
+                document.getElementById("firmField").style.display =
+                    (answers.persona === "attorney" || answers.persona === "doctor") ? "block" : "none";
+            }
+            if (id === "confirm") renderSummary();
+
+            updateProgress();
+
+            var el = stepEl(id);
+            if (el) {
+                var focusTarget = el.querySelector(".step-question") || el.querySelector("input, select, textarea, button");
+                if (focusTarget) { try { focusTarget.focus({ preventScroll: false }); } catch (e) { focusTarget.focus(); } }
+            }
+
+            if (!skipTrack && id !== "intro") {
+                var stepName = el ? el.getAttribute("data-name") : id;
+                track("lead_step_view", { step_name: stepName, step_index: visibleSteps().indexOf(id) + 1 });
+            }
+            save();
+        }
+
+        function goNext() {
+            var vis = visibleSteps();
+            var idx = vis.indexOf(currentStepId);
+            if (currentStepId === "intro") { showStep(vis[0]); return; }
+            if (idx > -1 && idx < vis.length - 1) showStep(vis[idx + 1]);
+        }
+
+        function goBack() {
+            var vis = visibleSteps();
+            var idx = vis.indexOf(currentStepId);
+            if (idx <= 0) { showStep("intro"); return; }
+            showStep(vis[idx - 1]);
+        }
+
+        // Record a completed step to the funnel. The chosen value(s) ride along via currentSelections().
+        function trackStepComplete(stepName) {
+            track("lead_step", { step_name: stepName, step_index: visibleSteps().indexOf(currentStepId) + 1 });
+        }
+
+        // ---- Choice handling (single-select steps) ----
+        steps.forEach(function (step) {
+            if (!step.hasAttribute("data-single")) return;
+            var field = step.getAttribute("data-field");
+            var stepName = step.getAttribute("data-name");
+            var other = step.querySelector(".other-input");
+            var nextBtn = step.querySelector('[data-action="next"]');
+
+            step.querySelectorAll(".choice").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    step.querySelectorAll(".choice").forEach(function (c) { c.classList.remove("selected"); });
+                    btn.classList.add("selected");
+                    answers[field] = btn.getAttribute("data-value");
+
+                    if (answers[field] === "other" && other) {
+                        other.classList.add("show");
+                        if (nextBtn) nextBtn.hidden = false;
+                        var inp = other.querySelector("input");
+                        if (inp) inp.focus();
+                        save();
+                        return;
+                    }
+
+                    if (other) { other.classList.remove("show"); if (nextBtn) nextBtn.hidden = true; }
+                    answers[field + "_other"] = "";
+                    save();
+
+                    // Persona change can add/remove the volume step — recompute before advancing.
+                    trackStepComplete(stepName);
+                    setTimeout(goNext, 220);
+                });
+            });
+        });
+
+        // ---- Validation (contact step) ----
+        function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+        function isValidPhone(v) { return v === "" || /[0-9]{7,}/.test(v.replace(/[^0-9]/g, "")); }
+
+        function fieldByValidate(name) { return document.querySelector('.field[data-validate="' + name + '"]'); }
+        function markInvalid(name, invalid) {
+            var f = fieldByValidate(name);
+            if (f) f.classList.toggle("invalid", invalid);
+        }
+
+        function validateContact() {
+            var name = document.getElementById("f_name").value.trim();
+            var email = document.getElementById("f_email").value.trim();
+            var phone = document.getElementById("f_phone").value.trim();
+            var firm = document.getElementById("f_firm").value.trim();
+            var firmRequired = (answers.persona === "attorney" || answers.persona === "doctor");
+
+            var ok = true;
+            markInvalid("name", false); markInvalid("email", false); markInvalid("phone", false); markInvalid("firm", false);
+
+            if (!name) { markInvalid("name", true); ok = false; }
+            if (!isValidEmail(email)) { markInvalid("email", true); ok = false; }
+            if (!isValidPhone(phone)) { markInvalid("phone", true); ok = false; }
+            if (firmRequired && !firm) { markInvalid("firm", true); ok = false; }
+
+            if (ok) {
+                answers.name = name; answers.email = email; answers.phone = phone; answers.firm = firm;
+                save();
+            }
+            return ok;
+        }
+
+        function renderSummary() {
+            var labels = {
+                intent: "Looking for", case_type: "Case type", persona: "You are",
+                cases_per_year: "Cases / year", name: "Name", firm: "Firm", email: "Email", phone: "Phone"
+            };
+            var pretty = {
+                free_case_review: "Free Case Review", talk_to_specialist: "Talk to a Specialist", other: "Other",
+                personal_injury: "Personal Injury", va_disability: "VA Disability", ssa_disability: "Social Security (SSA)",
+                workers_comp: "Workers' Comp", medical_malpractice: "Medical Malpractice", mass_tort: "Mass Tort",
+                attorney: "Attorney", doctor: "Doctor / Provider", claimant: "Claimant",
+                "1_10": "1–10", "11_50": "11–50", "51_200": "51–200", "200_plus": "200+"
+            };
+            function disp(field) {
+                if (answers[field] === "other") return answers[field + "_other"] || "Other";
+                return pretty[answers[field]] || answers[field];
+            }
+            var rows = [];
+            rows.push(["intent", disp("intent")]);
+            rows.push(["case_type", disp("case_type")]);
+            rows.push(["persona", disp("persona")]);
+            if (answers.cases_per_year) rows.push(["cases_per_year", disp("cases_per_year")]);
+            rows.push(["name", answers.name]);
+            if (answers.firm) rows.push(["firm", answers.firm]);
+            rows.push(["email", answers.email]);
+            if (answers.phone) rows.push(["phone", answers.phone]);
+
+            var html = "";
+            rows.forEach(function (r) {
+                if (!r[1]) return;
+                html += '<div class="summary-row"><span class="label">' + labels[r[0]] + '</span><span class="value">' + escapeHtml(r[1]) + "</span></div>";
+            });
+            document.getElementById("summary").innerHTML = html;
+        }
+
+        function escapeHtml(s) {
+            return String(s).replace(/[&<>"']/g, function (c) {
+                return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+            });
+        }
+
+        function buildSignupUrl() {
+            var u = new URLSearchParams();
+            var utm = getUtms();
+            Object.keys(utm).forEach(function (k) { if (utm[k]) u.set(k, utm[k]); });
+            // Carry every captured field so signup can prefill and the user doesn't re-enter anything.
+            var sel = currentSelections();
+            Object.keys(sel).forEach(function (k) { if (sel[k] !== null && sel[k] !== "") u.set(k, sel[k]); });
+            u.set("visitor_id", window.getVisitorId());
+            return "https://app.superinsight.me/#/signup?" + u.toString();
+        }
+
+        function submitLead() {
+            // Honeypot: silently succeed for bots without sending data.
+            if (document.getElementById("hpField").value) { showSuccess(); return; }
+
+            answers.notes = document.getElementById("f_notes").value.trim();
+
+            var btn = document.getElementById("submitBtn");
+            btn.disabled = true;
+            btn.textContent = "Submitting…";
+
+            // Full lead payload — all selections are attached automatically via currentSelections().
+            // NOTE: Pipedrive forwarding happens server-side in the /track Lambda (added later).
+            track("lead_complete");
+
+            // Final-stage webhook (n8n): all UTM params + every form key/value pair.
+            postWebhook(Object.assign({
+                event: "lead_complete",
+                visitor_id: window.getVisitorId(),
+                landing_page: window.location.pathname,
+                page_url: window.location.href,
+                full_url: buildFullUrl("lead_complete"),
+                referrer: document.referrer || "direct",
+                submitted_at: new Date().toISOString()
+            }, getUtms(), currentSelections()));
+
+            try { sessionStorage.removeItem(STORAGE_KEY); } catch (e) {}
+            showSuccess();
+        }
+
+        function showSuccess() {
+            form.style.display = "none";
+            progressEl.hidden = true;
+            document.getElementById("signupCta").href = buildSignupUrl();
+            if (answers.email) {
+                document.getElementById("successText").textContent =
+                    "Thanks, " + (answers.name ? answers.name.split(" ")[0] : "there") +
+                    "! A specialist will contact you shortly at " + answers.email + " with your free case review.";
+            }
+            successEl.classList.add("active");
+            try { successEl.querySelector(".success-title").setAttribute("tabindex", "-1"); successEl.querySelector(".success-title").focus(); } catch (e) {}
+        }
+
+        // ---- Global action handler ----
+        form.addEventListener("click", function (e) {
+            var actionEl = e.target.closest("[data-action]");
+            if (!actionEl) return;
+            var action = actionEl.getAttribute("data-action");
+
+            if (action === "start") {
+                if (!startFired) { track("lead_start"); startFired = true; }
+                save();
+                goNext();
+            } else if (action === "back") {
+                goBack();
+            } else if (action === "next") {
+                if (currentStepId === "contact") {
+                    if (validateContact()) { trackStepComplete("contact"); goNext(); }
+                    return;
+                }
+                // "Other" free-text steps confirm via Next.
+                var step = stepEl(currentStepId);
+                var field = step.getAttribute("data-field");
+                if (field && answers[field] === "other") {
+                    var inp = step.querySelector(".other-input input");
+                    answers[field + "_other"] = inp ? inp.value.trim() : "";
+                }
+                save();
+                trackStepComplete(step.getAttribute("data-name"));
+                goNext();
+            } else if (action === "submit") {
+                submitLead();
+            }
+        });
+
+        // Fire form-start tracking the first time any contact field is focused.
+        var contactStarted = false;
+        ["f_name", "f_email", "f_firm", "f_phone"].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.addEventListener("focus", function () {
+                if (!contactStarted) { contactStarted = true; track("lead_contact_start"); }
+            });
+        });
+
+        // ---- Init ----
+        track("form_page_view");
+        if (!restore()) { showStep("intro", true); }
+    })();
+    </script>
+</body>
+</html>
