@@ -926,19 +926,25 @@
                 submitted_at: new Date().toISOString()
             }, getUtms(), currentSelections()));
 
-            // OpenAI/ChatGPT pixel conversion — fired once on a completed lead.
-            try {
-                if (typeof oaiq === "function") {
-                    oaiq("measure", "lead_created", { type: "customer_action" });
-                }
-            } catch (e) { /* never block submission on the pixel */ }
+            // Paid-channel conversions only count high-value personas (attorney/doctor).
+            // Internal /track + n8n webhook above still capture every lead regardless of persona.
+            var isQualifiedLead = (answers.persona === "attorney" || answers.persona === "doctor");
 
-            // Google Ads conversion — Lead Form (Free Review).
-            try {
-                if (typeof gtag === "function") {
-                    gtag("event", "conversion", { send_to: "AW-17540312934/iwToCO6ajrwcEObe76tB" });
-                }
-            } catch (e) { /* never block submission on the conversion tag */ }
+            if (isQualifiedLead) {
+                // OpenAI/ChatGPT pixel conversion.
+                try {
+                    if (typeof oaiq === "function") {
+                        oaiq("measure", "lead_created", { type: "customer_action" });
+                    }
+                } catch (e) { /* never block submission on the pixel */ }
+
+                // Google Ads conversion — Lead Form (Free Review).
+                try {
+                    if (typeof gtag === "function") {
+                        gtag("event", "conversion", { send_to: "AW-17540312934/iwToCO6ajrwcEObe76tB" });
+                    }
+                } catch (e) { /* never block submission on the conversion tag */ }
+            }
 
             try { sessionStorage.removeItem(STORAGE_KEY); } catch (e) {}
             showSuccess();
