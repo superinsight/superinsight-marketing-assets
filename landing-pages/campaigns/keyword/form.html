@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>Get Your Free Case Review | Superinsight</title>
-    <meta name="description" content="Tell us about your case and get a free medical record case review from Superinsight. Quick 60-second form for attorneys, doctors, and claimants.">
+    <title>Free Medical Record Review for Attorneys & Medical Experts | Superinsight</title>
+    <meta name="description" content="AI-powered medical record review and chronologies built for attorneys and medical experts. Your first case is free. Answer a few quick questions to start.">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
@@ -322,6 +322,160 @@
     .success-text { color: #6b7280; margin-bottom: 18px; }
     .success-skip { color: #1f2937; font-weight: 600; margin-bottom: 16px; }
 
+    /* Social proof */
+    .trust-strip {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 6px 14px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #6b7280;
+        text-align: center;
+    }
+    .trust-strip .dot { color: #cbd5e1; }
+
+    .stat-strip {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    .stat-strip span {
+        flex: 1 1 0;
+        min-width: 92px;
+        text-align: center;
+        background: #f8fafc;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 10px 8px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #374151;
+        line-height: 1.3;
+    }
+    .stat-strip span strong {
+        display: block;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #285190;
+    }
+
+    .tcard {
+        margin: 14px 0 0;
+        padding: 16px 18px;
+        background: #f8fafc;
+        border: 1px solid #e5e7eb;
+        border-left: 3px solid #285190;
+        border-radius: 10px;
+    }
+    .tcard blockquote {
+        margin: 0 0 10px;
+        font-size: 0.92rem;
+        line-height: 1.5;
+        color: #374151;
+        font-style: italic;
+    }
+    .tcard figcaption {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.8rem;
+    }
+    .tcard .tmeta { display: flex; flex-direction: column; min-width: 0; }
+    .tcard .tavatar {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #285190;
+        background-repeat: no-repeat;
+        background-position: center 20%;
+        background-size: cover;
+    }
+    .tcard .tmono {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+    }
+    .tcard .tname { font-weight: 700; color: #1f2937; }
+    .tcard .trole { color: #6b7280; }
+
+    .reassure {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-size: 0.85rem;
+        line-height: 1.4;
+        color: #285190;
+        background: rgba(40, 81, 144, 0.06);
+        border-radius: 8px;
+        padding: 11px 13px;
+    }
+    .reassure svg { flex-shrink: 0; margin-top: 1px; }
+
+    /* Streaming quote caret */
+    .tcard blockquote { min-height: 1.5em; }
+    .tcard blockquote.streaming::after {
+        content: "▌";
+        color: #285190;
+        font-style: normal;
+        margin-left: 1px;
+        animation: si-blink 1s steps(1) infinite;
+    }
+    @keyframes si-blink { 50% { opacity: 0; } }
+
+    /* Two-column layout (desktop): questions left, social proof right rail */
+    .wizard-aside { margin-top: 24px; }
+    .wizard-aside[hidden] { display: none; }
+    .wizard-aside .trust-strip {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        font-size: 13px;
+    }
+    .wizard-aside .trust-strip .dot { display: none; }
+    .wizard-aside .stat-strip { flex-direction: column; }
+    .wizard-aside .stat-strip span { width: 100%; }
+    .wizard-aside .tcard { margin-top: 0; }
+    .wizard-aside .reassure { margin-bottom: 14px; }
+    .aside-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #9ca3af;
+        margin: 0 0 14px;
+    }
+
+    @media (min-width: 880px) {
+        .wizard-card { max-width: 940px; }
+        .wizard-body {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 304px;
+            gap: 36px;
+            align-items: start;
+        }
+        .wizard-body.solo { display: block; }
+        .wizard-body.solo .wizard-main { max-width: 560px; margin: 0 auto; }
+        .wizard-aside {
+            position: sticky;
+            top: 24px;
+            margin-top: 0;
+            background: linear-gradient(160deg, #f8fafc 0%, #eef3fb 100%);
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 22px 20px;
+        }
+        .wizard-aside .tcard { background: #ffffff; }
+    }
+
     /* Honeypot */
     .hp-field {
         position: absolute !important;
@@ -358,10 +512,13 @@
     <section class="wizard-section">
         <div class="wizard-card">
             <div class="wizard-head">
-                <span class="eyebrow">Free Case Review</span>
-                <h1 class="wizard-title">Get Your Free Case Review Today</h1>
-                <p class="wizard-subtitle">Answer a few quick questions — it takes about 60 seconds.</p>
+                <span class="eyebrow">For Attorneys &amp; Medical Experts</span>
+                <h1 class="wizard-title">Faster medical record reviews &amp; chronologies</h1>
+                <p class="wizard-subtitle">AI-built, page-cited summaries — no humans ever read the records. Your first case review is free.</p>
             </div>
+
+            <div class="wizard-body">
+            <div class="wizard-main">
 
             <!-- Progress -->
             <div class="progress" id="progress" hidden>
@@ -378,44 +535,35 @@
                     <label>Company website<input type="text" name="company_website" id="hpField" tabindex="-1" autocomplete="off"></label>
                 </div>
 
-                <!-- Intro -->
-                <div class="step active" data-step="intro">
-                    <div class="wizard-nav wizard-nav--center">
-                        <button type="button" class="btn btn-primary btn-large btn-blue" data-action="start">Start For Free</button>
+                <!-- Step 1: Persona (first screen — qualify up front) -->
+                <div class="step active" data-step="persona" data-name="persona" data-field="persona" data-single>
+                    <h2 class="step-question" tabindex="-1">What best describes you?</h2>
+                    <p class="step-hint">We built Superinsight for legal and medical professionals. This tailors the rest to how you work.</p>
+                    <div class="choices">
+                        <button type="button" class="choice" data-value="attorney"><span class="tick"></span><span>Attorney / legal team</span></button>
+                        <button type="button" class="choice" data-value="doctor"><span class="tick"></span><span>Medical provider / expert</span></button>
+                        <button type="button" class="choice" data-value="claimant"><span class="tick"></span><span>Individual (claimant)</span></button>
                     </div>
                 </div>
 
-                <!-- Step 1: Case type -->
+                <!-- Step 2: Case type -->
                 <div class="step" data-step="case_type" data-name="case_type" data-field="case_type" data-single>
-                    <h2 class="step-question" tabindex="-1">What type of case is it?</h2>
-                    <p class="step-hint">This helps us tailor the review.</p>
+                    <h2 class="step-question" tabindex="-1">What kind of work do you do?</h2>
+                    <p class="step-hint">We tailor the review to how you'll use it.</p>
                     <div class="choices">
-                        <button type="button" class="choice" data-value="mass_tort"><span class="tick"></span><span>Mass Tort</span></button>
-                        <button type="button" class="choice" data-value="medical_malpractice"><span class="tick"></span><span>Medical Malpractice</span></button>
-                        <button type="button" class="choice" data-value="personal_injury"><span class="tick"></span><span>Personal Injury</span></button>
-                        <button type="button" class="choice" data-value="ssa_disability"><span class="tick"></span><span>Social Security (SSA)</span></button>
-                        <button type="button" class="choice" data-value="va_disability"><span class="tick"></span><span>VA Disability</span></button>
-                        <button type="button" class="choice" data-value="workers_comp"><span class="tick"></span><span>Workers' Comp</span></button>
+                        <button type="button" class="choice" data-value="expert_witness" data-persona="doctor"><span class="tick"></span><span>Expert Witness</span></button>
+                        <button type="button" class="choice" data-value="life_care_planning" data-persona="doctor"><span class="tick"></span><span>Life Care Planning</span></button>
+                        <button type="button" class="choice" data-value="medical_exam" data-persona="doctor"><span class="tick"></span><span>Medical Exam</span></button>
+                        <button type="button" class="choice" data-value="mass_tort" data-persona="attorney"><span class="tick"></span><span>Mass Tort</span></button>
+                        <button type="button" class="choice" data-value="medical_malpractice" data-persona="attorney"><span class="tick"></span><span>Medical Malpractice</span></button>
+                        <button type="button" class="choice" data-value="personal_injury" data-persona="attorney"><span class="tick"></span><span>Personal Injury</span></button>
+                        <button type="button" class="choice" data-value="ssa_disability" data-persona="attorney"><span class="tick"></span><span>Social Security (SSA)</span></button>
+                        <button type="button" class="choice" data-value="va_disability" data-persona="attorney"><span class="tick"></span><span>VA Disability</span></button>
+                        <button type="button" class="choice" data-value="workers_comp" data-persona="attorney"><span class="tick"></span><span>Workers' Comp</span></button>
                         <button type="button" class="choice" data-value="other"><span class="tick"></span><span>Other</span></button>
                     </div>
                     <div class="other-input" data-other-for="case_type">
-                        <input type="text" placeholder="What type of case?" maxlength="120">
-                    </div>
-                    <div class="wizard-nav">
-                        <button type="button" class="btn-ghost" data-action="back">← Back</button>
-                        <span class="spacer"></span>
-                        <button type="button" class="btn btn-primary btn-blue" data-action="next" hidden>Continue</button>
-                    </div>
-                </div>
-
-                <!-- Step 2: Persona -->
-                <div class="step" data-step="persona" data-name="persona" data-field="persona" data-single>
-                    <h2 class="step-question" tabindex="-1">Which best describes you?</h2>
-                    <p class="step-hint">So we route you to the right team.</p>
-                    <div class="choices">
-                        <button type="button" class="choice" data-value="attorney"><span class="tick"></span><span>Attorney</span></button>
-                        <button type="button" class="choice" data-value="doctor"><span class="tick"></span><span>Doctor / Medical Provider</span></button>
-                        <button type="button" class="choice" data-value="claimant"><span class="tick"></span><span>Claimant / Individual</span></button>
+                        <input type="text" placeholder="What practice area?" maxlength="120">
                     </div>
                     <div class="wizard-nav">
                         <button type="button" class="btn-ghost" data-action="back">← Back</button>
@@ -425,14 +573,14 @@
                 </div>
 
                 <!-- Step 3: Volume (attorney/doctor only) -->
-                <div class="step" data-step="volume" data-name="cases_per_year" data-field="cases_per_year" data-single>
-                    <h2 class="step-question" tabindex="-1">How many cases do you handle per year?</h2>
-                    <p class="step-hint">A rough estimate is fine.</p>
+                <div class="step" data-step="volume" data-name="cases_per_month" data-field="cases_per_month" data-single>
+                    <h2 class="step-question" tabindex="-1">How many cases do you handle per month?</h2>
+                    <p class="step-hint">A rough estimate is fine — it helps us size your free review.</p>
                     <div class="choices">
-                        <button type="button" class="choice" data-value="1_10"><span class="tick"></span><span>1 – 10</span></button>
-                        <button type="button" class="choice" data-value="11_50"><span class="tick"></span><span>11 – 50</span></button>
-                        <button type="button" class="choice" data-value="51_200"><span class="tick"></span><span>51 – 200</span></button>
-                        <button type="button" class="choice" data-value="200_plus"><span class="tick"></span><span>200+</span></button>
+                        <button type="button" class="choice" data-value="0_10"><span class="tick"></span><span>0 – 10</span></button>
+                        <button type="button" class="choice" data-value="10_50"><span class="tick"></span><span>10 – 50</span></button>
+                        <button type="button" class="choice" data-value="50_500"><span class="tick"></span><span>50 – 500</span></button>
+                        <button type="button" class="choice" data-value="500_plus"><span class="tick"></span><span>500+</span></button>
                     </div>
                     <div class="wizard-nav">
                         <button type="button" class="btn-ghost" data-action="back">← Back</button>
@@ -443,8 +591,8 @@
 
                 <!-- Step 4: Contact -->
                 <div class="step" data-step="contact" data-name="contact">
-                    <h2 class="step-question" tabindex="-1">Where should we send your review?</h2>
-                    <p class="step-hint">A specialist will reach out shortly.</p>
+                    <h2 class="step-question" tabindex="-1">Where should we send your free review?</h2>
+                    <p class="step-hint">A specialist follows up within one business day — no sales pressure.</p>
 
                     <div class="field" data-validate="name">
                         <label for="f_name">Full name <span class="req">*</span></label>
@@ -510,12 +658,29 @@
                 <a href="#" id="signupCta" class="btn btn-primary btn-large btn-blue">Start Now — Skip the Wait</a>
             </div>
 
+            <!-- Claimant off-ramp -->
+            <div class="success" id="offramp">
+                <div class="success-icon" style="background: rgba(40, 81, 144, 0.12);">
+                    <svg width="34" height="34" viewBox="0 0 20 20" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" fill="#285190"/>
+                    </svg>
+                </div>
+                <h2 class="success-title">Superinsight works through your attorney or provider</h2>
+                <p class="success-text">We're a medical-record-review tool used by attorneys and medical experts — not a service for individuals directly. The fastest path: ask your attorney or representative to run your records through Superinsight. They'll get an AI-built, page-cited summary in about an hour.</p>
+                <a href="https://superinsight.ai/" class="btn btn-primary btn-large btn-blue">See how it works</a>
+            </div>
+
             <div class="wizard-trust">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" fill="#10b981"/>
                 </svg>
                 <span>HIPAA compliant • No credit card required • First review free</span>
             </div>
+
+            </div><!-- /wizard-main -->
+
+            <aside class="wizard-aside" id="proofPanel" hidden></aside>
+            </div><!-- /wizard-body -->
         </div>
     </section>
 
@@ -546,25 +711,49 @@
         var form = document.getElementById("leadForm");
         var steps = Array.prototype.slice.call(form.querySelectorAll(".step"));
         var successEl = document.getElementById("success");
+        var offrampEl = document.getElementById("offramp");
+        var proofPanel = document.getElementById("proofPanel");
+        var bodyEl = document.querySelector(".wizard-body");
         var progressEl = document.getElementById("progress");
         var progressFill = document.getElementById("progressFill");
         var progressLabel = document.getElementById("progressLabel");
         var progressCount = document.getElementById("progressCount");
 
-        // Question steps that count toward progress (intro/confirm shown, intro excluded from count)
-        var QUESTION_STEPS = ["case_type", "persona", "volume", "contact", "confirm"];
+        // Persona-first flow. Persona qualifies the visitor up front; volume only shows for
+        // attorney/doctor; persona is skipped entirely when locked via ?persona= from ads.
+        var QUESTION_STEPS = ["persona", "case_type", "volume", "contact", "confirm"];
+        var personaLocked = false;
 
         var answers = {
             intent: "free_case_review", intent_other: "",
             case_type: "", case_type_other: "",
             persona: "",
-            cases_per_year: "",
+            cases_per_month: "",
             name: "", firm: "", email: "", phone: "",
             notes: ""
         };
 
-        var currentStepId = "intro";
+        var currentStepId = "";
         var startFired = false;
+
+        // ---- Testimonials (matched to case type) ----
+        // Sourced from superinsight.ai customer stories. Med-mal / mass tort reuse Katie Reed
+        // (PI), SSA can use Diane Haar.
+        var TESTIMONIALS = {
+            va_disability:       { q: "Switching to Superinsight saved roughly $300,000 a year — I moved three RNs and two NPs onto veteran advocacy instead of summarizing records. It even reads handwritten military cursive.", n: "Paul Bunn", r: "Veterans Outreach Ministries · VA", img: "https://superinsight.ai/assets/pb_headshot.png", imgSize: "auto 150%", imgPos: "center top" },
+            personal_injury:     { q: "Superinsight has made me smarter about what I'm looking at — and faster. It flagged acronyms and test types I would have overlooked.", n: "Katie Reed", r: "McMahan Law · Personal Injury", img: "https://superinsight.ai/assets/katie-reed-headshot.jpg", imgPos: "center top" },
+            ssa_disability:      { q: "I'm so glad there's something like Superinsight — it would take forever to build the workflows you've already built into the data.", n: "Diane Haar", r: "Hawaii Disability Legal Services · SSD / VA", img: "https://superinsight.ai/assets/diane-haar-headshot.jpg" },
+            workers_comp:        { q: "After I get the structured output, my wheels are already off the ground. Sifting thousands of pages isn't the highest use of my time.", n: "Brian Mittman", r: "The Disability Guys · Workers' Comp", img: "https://superinsight.ai/assets/brian-mittman-headshot.png", imgPos: "center 40%" },
+            medical_malpractice: { q: "Superinsight has made me smarter about what I'm looking at — and faster. It flagged acronyms and test types I would have overlooked.", n: "Katie Reed", r: "McMahan Law · Med Mal & PI", img: "https://superinsight.ai/assets/katie-reed-headshot.jpg", imgPos: "center top" },
+            mass_tort:           { q: "Superinsight has made me smarter about what I'm looking at — and faster. It flagged acronyms and test types I would have overlooked.", n: "Katie Reed", r: "McMahan Law · Mass Tort & PI", img: "https://superinsight.ai/assets/katie-reed-headshot.jpg", imgPos: "center top" },
+            other:               { q: "The medical summary is the biggest time-suck in case prep. Superinsight condenses it and gives me a solid foundation to focus on what matters.", n: "Scott Haider", r: "Schneider Law Firm · SSD", img: "https://superinsight.ai/assets/scott-haider-headshot.jpg" }
+        };
+        // Medical-expert work types lead with D.K. Shillingford's quote.
+        TESTIMONIALS.dk = { q: "Superinsight is a force multiplier — it lets us do more with the same people and find the needles in the haystack we'd have missed doing it manually. We're already picking up errors in previous claims.", n: "Dawud D.K. Shillingford", r: "Shillingford Consulting Group · VA Disability", img: "https://superinsight.ai/assets/3I4A0903.jpg", imgPos: "center top" };
+        TESTIMONIALS.expert_witness = TESTIMONIALS.dk;
+        TESTIMONIALS.life_care_planning = TESTIMONIALS.dk;
+        TESTIMONIALS.medical_exam = TESTIMONIALS.dk;
+        var DEFAULT_TESTIMONIAL = TESTIMONIALS.other;
 
         function getParams() { return new URLSearchParams(window.location.search); }
 
@@ -630,7 +819,7 @@
                 case_type: answers.case_type || null,
                 case_type_other: answers.case_type_other || null,
                 persona: answers.persona || null,
-                cases_per_year: answers.cases_per_year || null,
+                cases_per_month: answers.cases_per_month || null,
                 name: answers.name || null,
                 firm: answers.firm || null,
                 email: answers.email || null,
@@ -699,7 +888,8 @@
                     answers = Object.assign(answers, data.answers);
                     startFired = !!data.startFired;
                     repopulate();
-                    if (data.step && data.step !== "intro") { showStep(data.step, true); return true; }
+                    // Only resume to a real, currently-visible question step.
+                    if (data.step && visibleSteps().indexOf(data.step) > -1) { showStep(data.step, true); return true; }
                 }
             } catch (e) {}
             return false;
@@ -734,6 +924,7 @@
         // ---- Step visibility / branching ----
         function visibleSteps() {
             return QUESTION_STEPS.filter(function (id) {
+                if (id === "persona") return !personaLocked;
                 if (id === "volume") return answers.persona === "attorney" || answers.persona === "doctor";
                 return true;
             });
@@ -746,10 +937,135 @@
             return null;
         }
 
+        // Case-type options vary by persona: medical experts see Expert Witness / Life Care
+        // Planning (no SSA/VA); attorneys see the full legal practice-area list.
+        function applyCaseTypeOptions() {
+            var ct = stepEl("case_type");
+            if (!ct) return;
+            ct.querySelectorAll(".choice").forEach(function (b) {
+                var p = b.getAttribute("data-persona");
+                var show = !p || p === answers.persona;
+                b.style.display = show ? "" : "none";
+                // Drop a stale selection that's no longer offered for this persona.
+                if (!show && b.classList.contains("selected")) {
+                    b.classList.remove("selected");
+                    if (answers.case_type === b.getAttribute("data-value")) {
+                        answers.case_type = ""; answers.case_type_other = "";
+                    }
+                }
+            });
+        }
+
+        // ---- Per-step social proof ----
+        // Ordered, de-duplicated list with the case-type match first, so each step shows a
+        // different voice instead of repeating the same quote across steps 3/4/5.
+        function orderedTestimonials() {
+            var match = TESTIMONIALS[answers.case_type] || DEFAULT_TESTIMONIAL;
+            var names = [match.n];
+            var list = [match];
+            ["va_disability", "personal_injury", "workers_comp", "ssa_disability", "other"].forEach(function (k) {
+                var t = TESTIMONIALS[k];
+                if (names.indexOf(t.n) === -1) { names.push(t.n); list.push(t); }
+            });
+            return list;
+        }
+        function testimonialForStep(i) {
+            var list = orderedTestimonials();
+            return list[i % list.length];
+        }
+        // Build initials (e.g. "Paul Bunn" -> "PB") for the monogram fallback avatar.
+        function initialsFor(name) {
+            var parts = (name || "").trim().split(/\s+/).filter(Boolean);
+            if (!parts.length) return "?";
+            var first = parts[0].charAt(0);
+            var last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : "";
+            return (first + last).toUpperCase();
+        }
+        // Blockquote is rendered empty; streamQuote() types the quote in afterwards.
+        function testimonialCard(t) {
+            var avatar;
+            if (t.img) {
+                var style = "background-image:url('" + escapeHtml(t.img) + "')";
+                if (t.imgSize) style += ";background-size:" + escapeHtml(t.imgSize);
+                if (t.imgPos) style += ";background-position:" + escapeHtml(t.imgPos);
+                avatar = '<span class="tavatar" role="img" aria-label="' + escapeHtml(t.n) + '" style="' + style + '"></span>';
+            } else {
+                avatar = '<span class="tavatar tmono" aria-hidden="true">' + escapeHtml(initialsFor(t.n)) + '</span>';
+            }
+            return '<figure class="tcard"><blockquote></blockquote>' +
+                '<figcaption>' + avatar +
+                '<span class="tmeta"><span class="tname">' + escapeHtml(t.n) + '</span>' +
+                '<span class="trole">' + escapeHtml(t.r) + '</span></span></figcaption></figure>';
+        }
+
+        // Typewriter / "streaming" effect for the testimonial quote (respects reduced-motion).
+        var streamTimer = null;
+        function stopStream() { if (streamTimer) { clearTimeout(streamTimer); streamTimer = null; } }
+        function streamQuote(el, text) {
+            stopStream();
+            var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (reduce) { el.textContent = "\u201C" + text + "\u201D"; return; }
+            el.classList.add("streaming");
+            el.textContent = "\u201C";
+            var i = 0;
+            function tick() {
+                i += 1;
+                if (i < text.length) {
+                    el.textContent = "\u201C" + text.slice(0, i);
+                    streamTimer = setTimeout(tick, 42);
+                } else {
+                    el.textContent = "\u201C" + text + "\u201D";
+                    el.classList.remove("streaming");
+                    streamTimer = null;
+                }
+            }
+            streamTimer = setTimeout(tick, 160);
+        }
+
+        // Shared right-rail proof panel (desktop) / stacked below the step (mobile).
+        function renderProof(id) {
+            if (!proofPanel) return;
+            stopStream();
+            var html = "", t = null;
+            if (id === "persona") {
+                html = '<p class="aside-label">Why teams switch</p>' +
+                    '<div class="trust-strip"><span>Trusted by law firms nationwide</span>' +
+                    '<span class="dot">•</span><span>HIPAA &amp; ISO 42001</span>' +
+                    '<span class="dot">•</span><span>NVIDIA Inception</span></div>';
+            } else if (id === "case_type") {
+                html = '<p class="aside-label">The results</p>' +
+                    '<div class="stat-strip">' +
+                    '<span><strong>70%</strong> less review time</span>' +
+                    '<span><strong>3×</strong> more evidence found</span>' +
+                    '<span><strong>~1 hr</strong> turnaround</span></div>';
+            } else if (id === "volume") {
+                t = testimonialForStep(0);
+                html = '<p class="aside-label">In their words</p>' + testimonialCard(t);
+            } else if (id === "contact") {
+                t = testimonialForStep(1);
+                html = '<div class="reassure"><svg width="16" height="16" viewBox="0 0 16 16" fill="none">' +
+                    '<path d="M8 1l5 2v4c0 3.1-2.1 5.6-5 6.5C5.1 12.6 3 10.1 3 7V3l5-2z" stroke="#285190" stroke-width="1.3" fill="rgba(40,81,144,0.12)"/></svg>' +
+                    '<span>No human ever reads the records — AI only, HIPAA &amp; ISO 42001. Your first case review is free, no card required.</span></div>' +
+                    testimonialCard(t);
+            } else if (id === "confirm") {
+                t = testimonialForStep(2);
+                html = '<div class="reassure"><svg width="16" height="16" viewBox="0 0 16 16" fill="none">' +
+                    '<path d="M13.5 4.5l-7 7-3-3" stroke="#285190" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+                    '<span>Every finding cites the exact source page, so you can verify in seconds.</span></div>' +
+                    testimonialCard(t);
+            }
+            proofPanel.innerHTML = html;
+            proofPanel.hidden = !html;
+            if (t) {
+                var bq = proofPanel.querySelector(".tcard blockquote");
+                if (bq) streamQuote(bq, t.q);
+            }
+        }
+
         function updateProgress() {
             var vis = visibleSteps();
             var idx = vis.indexOf(currentStepId);
-            if (idx === -1 || currentStepId === "intro") { progressEl.hidden = true; return; }
+            if (idx === -1) { progressEl.hidden = true; return; }
             progressEl.hidden = false;
             var pct = Math.round(((idx + 1) / vis.length) * 100);
             progressFill.style.width = pct + "%";
@@ -761,12 +1077,17 @@
             currentStepId = id;
             steps.forEach(function (s) { s.classList.toggle("active", s.getAttribute("data-step") === id); });
             successEl.classList.remove("active");
+            offrampEl.classList.remove("active");
+            form.style.display = "";
+            if (bodyEl) bodyEl.classList.remove("solo");
 
+            if (id === "case_type") applyCaseTypeOptions();
             if (id === "contact") {
                 document.getElementById("firmField").style.display =
                     (answers.persona === "attorney" || answers.persona === "doctor") ? "block" : "none";
             }
             if (id === "confirm") renderSummary();
+            renderProof(id);
 
             updateProgress();
 
@@ -776,7 +1097,7 @@
                 if (focusTarget) { try { focusTarget.focus({ preventScroll: false }); } catch (e) { focusTarget.focus(); } }
             }
 
-            if (!skipTrack && id !== "intro") {
+            if (!skipTrack) {
                 var stepName = el ? el.getAttribute("data-name") : id;
                 track("lead_step_view", { step_name: stepName, step_index: visibleSteps().indexOf(id) + 1 });
             }
@@ -786,14 +1107,13 @@
         function goNext() {
             var vis = visibleSteps();
             var idx = vis.indexOf(currentStepId);
-            if (currentStepId === "intro") { showStep(vis[0]); return; }
             if (idx > -1 && idx < vis.length - 1) showStep(vis[idx + 1]);
         }
 
         function goBack() {
             var vis = visibleSteps();
             var idx = vis.indexOf(currentStepId);
-            if (idx <= 0) { showStep("intro"); return; }
+            if (idx <= 0) return; // first visible step — nowhere to go back to
             showStep(vis[idx - 1]);
         }
 
@@ -812,6 +1132,9 @@
 
             step.querySelectorAll(".choice").forEach(function (btn) {
                 btn.addEventListener("click", function () {
+                    // First interaction with any question = engagement (the old intro gate is gone).
+                    if (!startFired) { track("lead_start"); startFired = true; }
+
                     step.querySelectorAll(".choice").forEach(function (c) { c.classList.remove("selected"); });
                     btn.classList.add("selected");
                     answers[field] = btn.getAttribute("data-value");
@@ -829,8 +1152,15 @@
                     answers[field + "_other"] = "";
                     save();
 
-                    // Persona change can add/remove the volume step — recompute before advancing.
                     trackStepComplete(stepName);
+
+                    // Claimants are filtered out: log + forward as unqualified, then off-ramp.
+                    if (field === "persona" && answers.persona === "claimant") {
+                        setTimeout(handleClaimant, 220);
+                        return;
+                    }
+
+                    // Persona change can add/remove the volume step — recompute before advancing.
                     setTimeout(goNext, 220);
                 });
             });
@@ -871,12 +1201,13 @@
         function renderSummary() {
             var labels = {
                 intent: "Looking for", case_type: "Case type", persona: "You are",
-                cases_per_year: "Cases / year", name: "Name", firm: "Firm", email: "Email", phone: "Phone"
+                cases_per_month: "Cases / month", name: "Name", firm: "Firm", email: "Email", phone: "Phone"
             };
             var pretty = {
                 free_case_review: "Free Case Review", talk_to_specialist: "Talk to a Specialist", other: "Other",
                 personal_injury: "Personal Injury", va_disability: "VA Disability", ssa_disability: "Social Security (SSA)",
                 workers_comp: "Workers' Comp", medical_malpractice: "Medical Malpractice", mass_tort: "Mass Tort",
+                expert_witness: "Expert Witness", life_care_planning: "Life Care Planning", medical_exam: "Medical Exam",
                 attorney: "Attorney", doctor: "Doctor / Provider", claimant: "Claimant",
                 "1_10": "1–10", "11_50": "11–50", "51_200": "51–200", "200_plus": "200+"
             };
@@ -885,10 +1216,9 @@
                 return pretty[answers[field]] || answers[field];
             }
             var rows = [];
-            rows.push(["intent", disp("intent")]);
             rows.push(["case_type", disp("case_type")]);
             rows.push(["persona", disp("persona")]);
-            if (answers.cases_per_year) rows.push(["cases_per_year", disp("cases_per_year")]);
+            if (answers.cases_per_month) rows.push(["cases_per_month", disp("cases_per_month")]);
             rows.push(["name", answers.name]);
             if (answers.firm) rows.push(["firm", answers.firm]);
             rows.push(["email", answers.email]);
@@ -936,6 +1266,7 @@
             // Final-stage webhook (n8n): all UTM params + every form key/value pair.
             var leadPayload = Object.assign({
                 event: "lead_complete",
+                qualified: (answers.persona === "attorney" || answers.persona === "doctor"),
                 visitor_id: window.getVisitorId(),
                 landing_page: window.location.pathname,
                 page_url: window.location.href,
@@ -973,9 +1304,47 @@
             showSuccess();
         }
 
+        // Claimant path: everyone still goes to n8n + /track (flagged unqualified), but no
+        // paid-channel conversions fire and the form ends on a referral off-ramp.
+        function handleClaimant() {
+            track("lead_unqualified", { step_name: "persona" });
+
+            var payload = Object.assign({
+                event: "lead_unqualified",
+                qualified: false,
+                visitor_id: window.getVisitorId(),
+                landing_page: window.location.pathname,
+                page_url: window.location.href,
+                full_url: buildFullUrl("lead_unqualified"),
+                referrer: document.referrer || "direct",
+                submitted_at: new Date().toISOString()
+            }, getUtms(), currentSelections());
+            deliverWebhook(payload);
+
+            try { sessionStorage.removeItem(STORAGE_KEY); } catch (e) {}
+            showOfframp();
+        }
+
+        function showOfframp() {
+            form.style.display = "none";
+            progressEl.hidden = true;
+            stopStream();
+            if (proofPanel) proofPanel.hidden = true;
+            if (bodyEl) bodyEl.classList.add("solo");
+            successEl.classList.remove("active");
+            offrampEl.classList.add("active");
+            try {
+                var t = offrampEl.querySelector(".success-title");
+                t.setAttribute("tabindex", "-1"); t.focus();
+            } catch (e) {}
+        }
+
         function showSuccess() {
             form.style.display = "none";
             progressEl.hidden = true;
+            stopStream();
+            if (proofPanel) proofPanel.hidden = true;
+            if (bodyEl) bodyEl.classList.add("solo");
             document.getElementById("signupCta").href = buildSignupUrl();
             if (answers.email) {
                 document.getElementById("successText").textContent =
@@ -992,11 +1361,7 @@
             if (!actionEl) return;
             var action = actionEl.getAttribute("data-action");
 
-            if (action === "start") {
-                if (!startFired) { track("lead_start"); startFired = true; }
-                save();
-                goNext();
-            } else if (action === "back") {
+            if (action === "back") {
                 goBack();
             } else if (action === "next") {
                 if (currentStepId === "contact") {
@@ -1029,7 +1394,25 @@
 
         // ---- Init ----
         track("form_page_view");
-        if (!restore()) { showStep("intro", true); }
+
+        // Ads can pre-qualify the visitor with ?persona=attorney|doctor|claimant so the
+        // persona step is skipped entirely (and claimant ads off-ramp immediately).
+        var pPersona = (getParams().get("persona") || "").toLowerCase();
+        if (pPersona === "attorney" || pPersona === "doctor") {
+            answers.persona = pPersona;
+            personaLocked = true;
+        } else if (pPersona === "claimant") {
+            answers.persona = "claimant";
+            personaLocked = true;
+        }
+
+        if (!restore()) {
+            if (personaLocked && answers.persona === "claimant") {
+                handleClaimant();
+            } else {
+                showStep(visibleSteps()[0], true);
+            }
+        }
     })();
     </script>
 </body>
