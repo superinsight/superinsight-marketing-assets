@@ -594,14 +594,32 @@
         function postWebhook(payload) {
             // utm_source=test routes to the n8n test webhook; everything else hits production.
             var endpoint = (getParams().get("utm_source") === "test") ? WEBHOOK_TEST : WEBHOOK_PROD;
-            try {
-                fetch(endpoint, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload),
-                    keepalive: true
-                }).catch(function () {});
-            } catch (e) { /* never block the UI on the webhook */ }
+            // No keepalive: the page stays open on the success screen, so a normal-priority
+            // fetch is more reliable here. Returns the promise so delivery can be retried.
+            return fetch(endpoint, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+        }
+
+        // Deliver the lead to n8n with retries. The first cross-site POST after a fresh page
+        // load can be dropped (cold CORS preflight / browser shields); retrying recovers it
+        // automatically instead of forcing a manual refresh + resubmit.
+        function deliverWebhook(payload, maxAttempts) {
+            maxAttempts = maxAttempts || 3;
+            function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+            function attempt(n) {
+                return postWebhook(payload).then(function (res) {
+                    if (res && res.ok) return true;
+                    if (n < maxAttempts) return wait(400 * n).then(function () { return attempt(n + 1); });
+                    return false;
+                }).catch(function () {
+                    if (n < maxAttempts) return wait(400 * n).then(function () { return attempt(n + 1); });
+                    return false;
+                });
+            }
+            return attempt(1);
         }
 
         // Snapshot of every selection made so far, so each event carries cumulative results.
@@ -916,7 +934,7 @@
             track("lead_complete");
 
             // Final-stage webhook (n8n): all UTM params + every form key/value pair.
-            postWebhook(Object.assign({
+            var leadPayload = Object.assign({
                 event: "lead_complete",
                 visitor_id: window.getVisitorId(),
                 landing_page: window.location.pathname,
@@ -924,7 +942,13 @@
                 full_url: buildFullUrl("lead_complete"),
                 referrer: document.referrer || "direct",
                 submitted_at: new Date().toISOString()
-            }, getUtms(), currentSelections()));
+            }, getUtms(), currentSelections());
+
+            // Deliver in the background with retries. Clear the saved form only once it
+            // succeeds, so a total delivery failure can still be recovered via refresh + resubmit.
+            deliverWebhook(leadPayload).then(function (ok) {
+                if (ok) { try { sessionStorage.removeItem(STORAGE_KEY); } catch (e) {} }
+            });
 
             // Paid-channel conversions only count high-value personas (attorney/doctor).
             // Internal /track + n8n webhook above still capture every lead regardless of persona.
@@ -946,7 +970,6 @@
                 } catch (e) { /* never block submission on the conversion tag */ }
             }
 
-            try { sessionStorage.removeItem(STORAGE_KEY); } catch (e) {}
             showSuccess();
         }
 
