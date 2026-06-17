@@ -1238,13 +1238,28 @@
             });
         }
 
+        // Map landing-form personas to the app's `practicing` profile values.
+        var PERSONA_TO_PRACTICING = { attorney: "legal", doctor: "medical", claimant: "others" };
+
         function buildSignupUrl() {
             var u = new URLSearchParams();
             var utm = getUtms();
             Object.keys(utm).forEach(function (k) { if (utm[k]) u.set(k, utm[k]); });
-            // Carry every captured field so signup can prefill and the user doesn't re-enter anything.
+            // Map captured fields to the app signup's `profile` keys so they prefill
+            // and the user doesn't re-enter anything. Keys/values must match the backend.
             var sel = currentSelections();
-            Object.keys(sel).forEach(function (k) { if (sel[k] !== null && sel[k] !== "") u.set(k, sel[k]); });
+            var profile = {
+                practicing: PERSONA_TO_PRACTICING[sel.persona] || null, // legal | medical | others
+                volume: sel.cases_per_month,                            // 0_10 | 10_50 | 50_500 | 500_plus
+                user_name: sel.name,
+                firm_name: sel.firm,
+                email: sel.email,
+                mobile: sel.phone
+            };
+            Object.keys(profile).forEach(function (k) { if (profile[k] != null && profile[k] !== "") u.set(k, profile[k]); });
+            // Pass practice area + notes for context (no dedicated profile column yet).
+            if (sel.case_type) u.set("case_type", sel.case_type === "other" ? (sel.case_type_other || "other") : sel.case_type);
+            if (sel.notes) u.set("notes", sel.notes);
             u.set("visitor_id", window.getVisitorId());
             return "https://app.superinsight.me/#/signup?" + u.toString();
         }
