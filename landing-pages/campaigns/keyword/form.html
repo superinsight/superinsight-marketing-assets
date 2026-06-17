@@ -222,6 +222,13 @@
         margin-bottom: 6px;
     }
     .field .req { color: #ef4444; }
+    .field .opt { color: #9ca3af; font-weight: 400; font-size: 0.85em; }
+    .final-reassure {
+        margin: 18px 0 4px;
+        font-size: 0.85rem;
+        color: #6b7280;
+        text-align: center;
+    }
     .field input,
     .field select,
     .field textarea,
@@ -589,10 +596,10 @@
                     </div>
                 </div>
 
-                <!-- Step 4: Contact -->
+                <!-- Final step: Contact + optional notes (confirm merged in) -->
                 <div class="step" data-step="contact" data-name="contact">
-                    <h2 class="step-question" tabindex="-1">Where should we send your free review?</h2>
-                    <p class="step-hint">A specialist follows up within one business day — no sales pressure.</p>
+                    <h2 class="step-question" tabindex="-1">Last step — get your free review</h2>
+                    <p class="step-hint">Just your name and email to start. A specialist follows up within one business day — no sales pressure.</p>
 
                     <div class="field" data-validate="name">
                         <label for="f_name">Full name <span class="req">*</span></label>
@@ -601,41 +608,29 @@
                     </div>
 
                     <div class="field" id="firmField" data-validate="firm">
-                        <label for="f_firm">Firm / organization</label>
+                        <label for="f_firm">Firm / organization <span class="opt">(optional)</span></label>
                         <input type="text" id="f_firm" name="firm" autocomplete="organization" placeholder="Acme Law Firm">
                         <div class="field-error">Please enter your firm.</div>
                     </div>
 
                     <div class="field" data-validate="email">
                         <label for="f_email">Email <span class="req">*</span></label>
-                        <input type="email" id="f_email" name="email" autocomplete="email" placeholder="jane@firm.com">
+                        <input type="email" id="f_email" name="email" autocomplete="email" inputmode="email" placeholder="jane@firm.com">
                         <div class="field-error">Please enter a valid email address.</div>
                     </div>
 
                     <div class="field" data-validate="phone">
-                        <label for="f_phone">Phone</label>
-                        <input type="tel" id="f_phone" name="phone" autocomplete="tel" placeholder="(555) 123-4567">
+                        <label for="f_phone">Phone <span class="opt">(optional)</span></label>
+                        <input type="tel" id="f_phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="(555) 123-4567">
                         <div class="field-error">Please enter a valid phone number.</div>
                     </div>
 
-                    <div class="wizard-nav">
-                        <button type="button" class="btn-ghost" data-action="back">← Back</button>
-                        <span class="spacer"></span>
-                        <button type="button" class="btn btn-primary btn-blue" data-action="next">Continue</button>
-                    </div>
-                </div>
-
-                <!-- Step 5: Confirm + notes -->
-                <div class="step" data-step="confirm" data-name="confirm">
-                    <h2 class="step-question" tabindex="-1">Almost done — anything to add?</h2>
-                    <p class="step-hint">A specialist will contact you shortly. Add any notes about your case (optional).</p>
-
-                    <div class="summary" id="summary"></div>
-
                     <div class="field">
-                        <label for="f_notes">Notes (optional)</label>
+                        <label for="f_notes">Anything to add? <span class="opt">(optional)</span></label>
                         <textarea id="f_notes" name="notes" placeholder="e.g. 3,000 pages of records, deadline next month…" maxlength="1000"></textarea>
                     </div>
+
+                    <p class="final-reassure">HIPAA compliant • No credit card required • Your first review is free</p>
 
                     <div class="wizard-nav">
                         <button type="button" class="btn-ghost" data-action="back">← Back</button>
@@ -721,7 +716,7 @@
 
         // Persona-first flow. Persona qualifies the visitor up front; volume only shows for
         // attorney/doctor; persona is skipped entirely when locked via ?persona= from ads.
-        var QUESTION_STEPS = ["persona", "case_type", "volume", "contact", "confirm"];
+        var QUESTION_STEPS = ["persona", "case_type", "volume", "contact"];
         var personaLocked = false;
 
         var answers = {
@@ -1047,12 +1042,6 @@
                     '<path d="M8 1l5 2v4c0 3.1-2.1 5.6-5 6.5C5.1 12.6 3 10.1 3 7V3l5-2z" stroke="#285190" stroke-width="1.3" fill="rgba(40,81,144,0.12)"/></svg>' +
                     '<span>No human ever reads the records — AI only, HIPAA &amp; ISO 42001. Your first case review is free, no card required.</span></div>' +
                     testimonialCard(t);
-            } else if (id === "confirm") {
-                t = testimonialForStep(2);
-                html = '<div class="reassure"><svg width="16" height="16" viewBox="0 0 16 16" fill="none">' +
-                    '<path d="M13.5 4.5l-7 7-3-3" stroke="#285190" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
-                    '<span>Every finding cites the exact source page, so you can verify in seconds.</span></div>' +
-                    testimonialCard(t);
             }
             proofPanel.innerHTML = html;
             proofPanel.hidden = !html;
@@ -1086,7 +1075,6 @@
                 document.getElementById("firmField").style.display =
                     (answers.persona === "attorney" || answers.persona === "doctor") ? "block" : "none";
             }
-            if (id === "confirm") renderSummary();
             renderProof(id);
 
             updateProgress();
@@ -1181,55 +1169,20 @@
             var email = document.getElementById("f_email").value.trim();
             var phone = document.getElementById("f_phone").value.trim();
             var firm = document.getElementById("f_firm").value.trim();
-            var firmRequired = (answers.persona === "attorney" || answers.persona === "doctor");
 
             var ok = true;
             markInvalid("name", false); markInvalid("email", false); markInvalid("phone", false); markInvalid("firm", false);
 
+            // Only name + email are required. Firm and phone are optional.
             if (!name) { markInvalid("name", true); ok = false; }
             if (!isValidEmail(email)) { markInvalid("email", true); ok = false; }
             if (!isValidPhone(phone)) { markInvalid("phone", true); ok = false; }
-            if (firmRequired && !firm) { markInvalid("firm", true); ok = false; }
 
             if (ok) {
                 answers.name = name; answers.email = email; answers.phone = phone; answers.firm = firm;
                 save();
             }
             return ok;
-        }
-
-        function renderSummary() {
-            var labels = {
-                intent: "Looking for", case_type: "Case type", persona: "You are",
-                cases_per_month: "Cases / month", name: "Name", firm: "Firm", email: "Email", phone: "Phone"
-            };
-            var pretty = {
-                free_case_review: "Free Case Review", talk_to_specialist: "Talk to a Specialist", other: "Other",
-                personal_injury: "Personal Injury", va_disability: "VA Disability", ssa_disability: "Social Security (SSA)",
-                workers_comp: "Workers' Comp", medical_malpractice: "Medical Malpractice", mass_tort: "Mass Tort",
-                expert_witness: "Expert Witness", life_care_planning: "Life Care Planning", medical_exam: "Medical Exam",
-                attorney: "Attorney", doctor: "Doctor / Provider", claimant: "Claimant",
-                "1_10": "1–10", "11_50": "11–50", "51_200": "51–200", "200_plus": "200+"
-            };
-            function disp(field) {
-                if (answers[field] === "other") return answers[field + "_other"] || "Other";
-                return pretty[answers[field]] || answers[field];
-            }
-            var rows = [];
-            rows.push(["case_type", disp("case_type")]);
-            rows.push(["persona", disp("persona")]);
-            if (answers.cases_per_month) rows.push(["cases_per_month", disp("cases_per_month")]);
-            rows.push(["name", answers.name]);
-            if (answers.firm) rows.push(["firm", answers.firm]);
-            rows.push(["email", answers.email]);
-            if (answers.phone) rows.push(["phone", answers.phone]);
-
-            var html = "";
-            rows.forEach(function (r) {
-                if (!r[1]) return;
-                html += '<div class="summary-row"><span class="label">' + labels[r[0]] + '</span><span class="value">' + escapeHtml(r[1]) + "</span></div>";
-            });
-            document.getElementById("summary").innerHTML = html;
         }
 
         function escapeHtml(s) {
@@ -1267,6 +1220,10 @@
         function submitLead() {
             // Honeypot: silently succeed for bots without sending data.
             if (document.getElementById("hpField").value) { showSuccess(); return; }
+
+            // Contact is the final step now, so validate name/email here before sending.
+            if (!validateContact()) return;
+            trackStepComplete("contact");
 
             answers.notes = document.getElementById("f_notes").value.trim();
 
