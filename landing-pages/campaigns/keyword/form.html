@@ -229,6 +229,8 @@
         color: #6b7280;
         text-align: center;
     }
+    /* A/B test: variant B shows only Full name + Email on the contact step. */
+    #leadForm[data-variant="B"] .ab-hide { display: none !important; }
     .field input,
     .field select,
     .field textarea,
@@ -607,7 +609,7 @@
                         <div class="field-error">Please enter your name.</div>
                     </div>
 
-                    <div class="field" id="firmField" data-validate="firm">
+                    <div class="field ab-hide" id="firmField" data-validate="firm">
                         <label for="f_firm">Firm / organization <span class="opt">(optional)</span></label>
                         <input type="text" id="f_firm" name="firm" autocomplete="organization" placeholder="Acme Law Firm">
                         <div class="field-error">Please enter your firm.</div>
@@ -619,13 +621,13 @@
                         <div class="field-error">Please enter a valid email address.</div>
                     </div>
 
-                    <div class="field" data-validate="phone">
+                    <div class="field ab-hide" data-validate="phone">
                         <label for="f_phone">Phone <span class="opt">(optional)</span></label>
                         <input type="tel" id="f_phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="(555) 123-4567">
                         <div class="field-error">Please enter a valid phone number.</div>
                     </div>
 
-                    <div class="field">
+                    <div class="field ab-hide">
                         <label for="f_notes">Anything to add? <span class="opt">(optional)</span></label>
                         <textarea id="f_notes" name="notes" placeholder="e.g. 3,000 pages of records, deadline next month…" maxlength="1000"></textarea>
                     </div>
@@ -718,6 +720,26 @@
         // attorney/doctor; persona is skipped entirely when locked via ?persona= from ads.
         var QUESTION_STEPS = ["persona", "case_type", "volume", "contact"];
         var personaLocked = false;
+
+        // A/B test on the final contact step:
+        //   A = full contact step (name, firm, email, phone, notes)
+        //   B = minimal contact step (full name + email only)
+        // Sticky per visitor via cookie so a returning visitor always sees the same variant.
+        // Override with ?variant=A|B for QA. Assigned in init() before the first track call.
+        var AB_VARIANT = "A";
+        function assignVariant() {
+            var forced = (getParams().get("variant") || "").toUpperCase();
+            if (forced === "A" || forced === "B") {
+                window.setVisitorCookie("superinsight_form_variant", forced, 365);
+                return forced;
+            }
+            var v = window.getCookie("superinsight_form_variant");
+            if (v !== "A" && v !== "B") {
+                v = Math.random() < 0.5 ? "A" : "B";
+                window.setVisitorCookie("superinsight_form_variant", v, 365);
+            }
+            return v;
+        }
 
         var answers = {
             intent: "free_case_review", intent_other: "",
@@ -834,6 +856,7 @@
                 if (sel[k] !== null && sel[k] !== "") sp.set(k, sel[k]);
             });
             sp.set("form_event", eventName);
+            sp.set("form_variant", AB_VARIANT);
             if (extra) {
                 if (extra.step_name) sp.set("form_step", extra.step_name);
                 if (extra.step_index != null) sp.set("form_step_index", extra.step_index);
@@ -852,6 +875,7 @@
                 visitor_id: window.getVisitorId(),
                 landing_page: window.location.pathname,
                 page_url: fullUrl,
+                form_variant: AB_VARIANT,
                 created_at: new Date().toISOString()
             }, getUtms(), currentSelections(), extra || {});
             window.dataLayer = window.dataLayer || [];
@@ -1239,6 +1263,7 @@
             var leadPayload = Object.assign({
                 event: "lead_complete",
                 qualified: (answers.persona === "attorney" || answers.persona === "doctor"),
+                form_variant: AB_VARIANT,
                 visitor_id: window.getVisitorId(),
                 landing_page: window.location.pathname,
                 page_url: window.location.href,
@@ -1284,6 +1309,7 @@
             var payload = Object.assign({
                 event: "lead_unqualified",
                 qualified: false,
+                form_variant: AB_VARIANT,
                 visitor_id: window.getVisitorId(),
                 landing_page: window.location.pathname,
                 page_url: window.location.href,
@@ -1365,6 +1391,10 @@
         });
 
         // ---- Init ----
+        // Assign the A/B variant (sticky per visitor) and apply it before any tracking fires.
+        AB_VARIANT = assignVariant();
+        form.setAttribute("data-variant", AB_VARIANT);
+
         track("form_page_view");
 
         // Ads can pre-qualify the visitor with ?persona=attorney|doctor|claimant so the
